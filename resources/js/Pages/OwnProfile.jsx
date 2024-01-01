@@ -1,5 +1,6 @@
 import EditButton from "@/Components/EditButton";
 import React from "react";
+import { Button } from "@mui/material";
 
 const OwnProfile = (props) => {
     const imgName = props.profile.icon;
@@ -20,7 +21,7 @@ const OwnProfile = (props) => {
                       </p>
                     </div>
                     <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
-                      <EditButton>編集</EditButton>
+                      <Button variant="contained" size="large">編集</Button>
                     </div>
                 </div>
             </div>
