@@ -91,15 +91,6 @@ export default function Login({ status, canResetPassword }) {
                         Log in
                     </PrimaryButton>
                 </div>
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('login.google')}
-                        >
-                            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" />
-                        </Link>
-                    )}
-                </div>
             </form>
         </GuestLayout>
     );
