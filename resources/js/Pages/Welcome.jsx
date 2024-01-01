@@ -8,7 +8,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <div className="w-2/3">
                     <div className='flex text-white text-8xl'>
                         <img src="img/welcome/TRUST_white.png" />
-                        <p>is Everything</p>
+                        <p className='pl-1'>is Everything</p>
                     </div>
                 </div>
                 {
@@ -29,7 +29,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                             Log in
                                         </Link>
                                     </div>
-                                    <p className='my-6'>or</p>
+                                    <p className='my-6 font-bold'>or</p>
                                     <div className='italic font-bold'>
                                         <Link
                                             href={route('register')}
