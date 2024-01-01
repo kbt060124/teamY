@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $profile = UserProfile::where('id',$id)
+            ->where('invalid_flg', 0)
+            ->first();
+
+        return Inertia::render('OwnProfile',[
+            'profile' => $profile
+        ]);
     }
 
     /**
