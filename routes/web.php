@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,8 @@ Route::get('/', function () {
 Route::get('/ownrecommendationlist', function () {
     return Inertia::render('OwnRecommendationList');
 })->middleware(['auth', 'verified'])->name('ownrecommendationlist');
+
+Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->name('ownprofile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
