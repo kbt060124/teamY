@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserPostRecommend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -18,8 +19,12 @@ class UserController extends Controller
             ->where('invalid_flg', 0)
             ->first();
 
+        $recommends = UserPostRecommend::where('id',Auth::user()->id)
+            ->get();
+
         return Inertia::render('OwnRecommendationList',[
-            'profile' => $profile
+            'profile' => $profile,
+            'recommends' => $recommends
         ]);
     }
 
