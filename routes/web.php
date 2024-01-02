@@ -26,9 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/ownrecommendationlist', function () {
-    return Inertia::render('OwnRecommendationList');
-})->middleware(['auth', 'verified'])->name('ownrecommendationlist');
+Route::get('/ownrecommendationlist',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('ownrecommendationlist');
 
 Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->name('ownprofile');
 
