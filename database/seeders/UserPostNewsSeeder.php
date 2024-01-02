@@ -13,15 +13,23 @@ class UserPostNewsSeeder extends Seeder
      */
     public function run(): void
     {
-        UserPostNews::create([
-            'id' => 1,
-            'user_id' => 1,
-            'news' => 'ログインユーザ自身が近況を記載します。'
-        ],
+        UserPostNews::truncate();
+        $params = 
         [
-            'id' => 2,
-            'user_id' => 2,
-            'news' => '今日は山田さんと初仕事でした。'
-        ]);
+            [
+                'id' => 1,
+                'user_id' => 1,
+                'news' => 'ログインユーザ自身が近況を記載します。'
+            ],
+            [
+                'id' => 2,
+                'user_id' => 2,
+                'news' => '今日は山田さんと初仕事でした。'
+            ]
+        ];
+
+        foreach ($params as $param) {
+            UserPostNews::insert($param);
+        }
     }
 }

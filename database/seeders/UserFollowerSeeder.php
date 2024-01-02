@@ -13,23 +13,31 @@ class UserFollowerSeeder extends Seeder
      */
     public function run(): void
     {
-        UserFollower::create([
-            'id' => 1,
-            'follow_id' => 1,
-            'follower_id' => 2,
-            'accept_flg' => 1
-        ],
+        UserFollower::truncate();
+        $params = 
         [
-            'id' => 2,
-            'follow_id' => 2,
-            'follower_id' => 1,
-            'accept_flg' => 1
-        ],
-        [
-            'id' => 3,
-            'follow_id' => 1,
-            'follower_id' => 3,
-            'accept_flg' => 1
-        ]);
+            [
+                'id' => 1,
+                'follow_id' => 1,
+                'follower_id' => 2,
+                'accept_flg' => 1
+            ],
+            [
+                'id' => 2,
+                'follow_id' => 2,
+                'follower_id' => 1,
+                'accept_flg' => 1
+            ],
+            [
+                'id' => 3,
+                'follow_id' => 1,
+                'follower_id' => 3,
+                'accept_flg' => 1
+            ]
+        ];
+
+        foreach ($params as $param) {
+            UserFollower::insert($param);
+        }
     }
 }
