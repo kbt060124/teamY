@@ -15,14 +15,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $profile = User::where('id',Auth::user()->id)
+        $profile = User::where('id', Auth::user()->id)
             ->where('invalid_flg', 0)
             ->first();
 
-        $recommends = UserPostRecommend::where('id',Auth::user()->id)
+        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
+            ->leftJoin('users', 'recommended_user_id', '=', 'users.id')
+            ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
+            ->where('user_id', Auth::user()->id)
             ->get();
 
-        return Inertia::render('OwnRecommendationList',[
+        return Inertia::render('OwnRecommendationList', [
             'profile' => $profile,
             'recommends' => $recommends
         ]);
