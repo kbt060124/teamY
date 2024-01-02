@@ -13,17 +13,25 @@ class UserCommentSeeder extends Seeder
      */
     public function run(): void
     {
-        UserComment::create([
-            'id' => 1,
-            'user_id' => 2,
-            'post_comment_id' => 1,
-            'comment' => 'ポストに対するコメントです。'
-        ],
+        UserComment::truncate();
+        $params = 
         [
-            'id' => 2,
-            'user_id' => 3,
-            'post_comment_id' => 2,
-            'comment' => 'テストコメントです。'
-        ]);
+            [
+                'id' => 1,
+                'user_id' => 2,
+                'post_comment_id' => 1,
+                'comment' => 'ポストに対するコメントです。'
+            ],
+            [
+                'id' => 2,
+                'user_id' => 3,
+                'post_comment_id' => 2,
+                'comment' => 'テストコメントです。'
+            ]
+        ];
+
+        foreach ($params as $param) {
+            UserComment::insert($param);
+        }
     }
 }

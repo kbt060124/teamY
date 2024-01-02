@@ -13,6 +13,7 @@ class GuestRecommendSeeder extends Seeder
      */
     public function run(): void
     {
+        GuestRecommend::truncate();
         GuestRecommend::create([
             'id' => 1,
             'recommend_id' => 2,

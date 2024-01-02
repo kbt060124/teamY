@@ -13,6 +13,7 @@ class UserInvitationSeeder extends Seeder
      */
     public function run(): void
     {
+        UserInvitation::truncate();
         UserInvitation::create([
             'id' => 1,
             'user_id' => 1,

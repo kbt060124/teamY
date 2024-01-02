@@ -13,13 +13,23 @@ class TopicSeeder extends Seeder
      */
     public function run(): void
     {
-        Topic::create([
-            'id' => 1,
-            'name' => 'プログラミング'
-        ],
+        Topic::truncate();
+
+        $params = 
         [
-            'id' => 2,
-            'name' => '起業'
-        ]);
+            [
+                'id' => 1,
+                'name' => 'プログラミング'
+            ],
+            [
+                'id' => 2,
+                'name' => '起業'
+            ]
+        ];
+
+        foreach ($params as $param) {
+            Topic::insert($param);
+        }
+
     }
 }

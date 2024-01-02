@@ -13,15 +13,24 @@ class RecommendTopicSeeder extends Seeder
      */
     public function run(): void
     {
-        RecommendTopic::create([
-            'id' => 1,
-            'recommend_id' => 1,
-            'topic_id' => 1
-        ],
+        RecommendTopic::truncate();
+
+        $params = 
         [
-            'id' => 2,
-            'recommend_id' => 1,
-            'topic_id' => 2
-        ]);
+            [
+                'id' => 1,
+                'recommend_id' => 1,
+                'topic_id' => 1
+            ],
+            [
+                'id' => 2,
+                'recommend_id' => 1,
+                'topic_id' => 2
+            ]
+        ];
+
+        foreach ($params as $param) {
+            RecommendTopic::insert($param);
+        }
     }
 }
