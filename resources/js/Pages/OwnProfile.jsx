@@ -1,4 +1,3 @@
-import EditButton from "@/Components/EditButton";
 import React from "react";
 import { Button } from "@mui/material";
 
@@ -16,12 +15,12 @@ const OwnProfile = (props) => {
                         {props.profile.name}
                     </div>
                     <div className="text text-xl h-2/5">
-                      <p>
-                        {props.profile.text}
-                      </p>
+                        <p>{props.profile.text}</p>
                     </div>
                     <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
-                      <Button variant="contained" size="large">編集</Button>
+                        <Button variant="contained" size="large">
+                            編集
+                        </Button>
                     </div>
                 </div>
             </div>
