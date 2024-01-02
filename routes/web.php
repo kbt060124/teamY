@@ -27,9 +27,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/ownrecommendationlist', function () {
+    return Inertia::render('OwnRecommendationList');
+})->middleware(['auth', 'verified'])->name('ownrecommendationlist');
 
 Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->name('ownprofile');
 
