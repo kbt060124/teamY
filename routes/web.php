@@ -30,7 +30,7 @@ Route::get('/', function () {
 Route::get('/ownrecommendationlist',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('ownrecommendationlist');
 
 Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->middleware('auth')->name('ownprofile');
-Route::post('/ownrecommendationlist', [UserController::class,"update"])->middleware('auth')->name('edit'); 
+Route::post('/ownprofile-edit', [UserController::class,"update"])->middleware('auth')->name('edit'); 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
