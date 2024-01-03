@@ -5,7 +5,10 @@ import { useForm } from "@inertiajs/react";
 const OwnRecommendations = (props) => {
     console.log(props);
     const recomendImgPath = "../storage/img/icons/" + props.recommends.icon;
+    const guestImgPath = "../storage/img/icons/" + props.recommends.guest_icon;
     const userImgPath = "../storage/img/icons/" + props.profile.icon;
+    const recommendedUserId = props.recommends.recommended_user_id;
+    const text = props.recommends.text;
     const [editMode, setEditMode] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         id: props.profile.id,
@@ -37,19 +40,29 @@ const OwnRecommendations = (props) => {
                         encType="multipart/form-data"
                         className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative"
                     >
-                        <div className="flex">
-                            <div className="w-1/2 h-1/3 p-12 flex items-end">
+                        <div className="flex h-1/2">
+                            <div className="w-1/2 p-12 flex items-end">
                                 <div className="w-1/3 h-1/2 flex items-end">
                                     <img src={userImgPath} alt="" />
                                 </div>
                                 <div className="w-2/3">
-                                    <img src={recomendImgPath} alt="" />
+                                    {recommendedUserId ? (
+                                        <img src={recomendImgPath} alt="" />
+                                    ) : (
+                                        <img src={guestImgPath} alt="" />
+                                    )}
                                 </div>
                             </div>
                             <div className="w-1/2 pl-8 pr-20 py-12">
-                                <div className="name mb-8 text-4xl font-bold">
-                                    {data.name}
-                                </div>
+                                {recommendedUserId ? (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.name}
+                                    </div>
+                                ) : (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.guestName}
+                                    </div>
+                                )}
                                 <div className="title mb-4">
                                     <TextField
                                         name="title"
@@ -87,26 +100,36 @@ const OwnRecommendations = (props) => {
             ) : (
                 <>
                     <div className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative">
-                        <div className="flex">
-                            <div className="w-1/2 h-1/3 p-12 flex items-end">
-                                <div className="w-1/3 h-1/2 flex items-end">
+                        <div className="flex h-1/2">
+                            <div className="w-1/2  p-12 flex items-end">
+                                <div className="w-1/3  flex items-end">
                                     <img src={userImgPath} alt="" />
                                 </div>
                                 <div className="w-2/3">
-                                    <img src={recomendImgPath} alt="" />
+                                    {recommendedUserId ? (
+                                        <img src={recomendImgPath} alt="" />
+                                    ) : (
+                                        <img src={guestImgPath} alt="" />
+                                    )}
                                 </div>
                             </div>
                             <div className="w-1/2 px-8 py-12">
-                                <div className="name mb-8 text-4xl font-bold">
-                                    {data.name}
-                                </div>
+                                {recommendedUserId ? (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.name}
+                                    </div>
+                                ) : (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.guestName}
+                                    </div>
+                                )}
                                 <div className="title mb-8 text-xl font-bold">
                                     {data.title}
                                 </div>
                             </div>
                         </div>
                         <div className="text text-xl h-2/3 px-20">
-                            <p>{data.text}</p>
+                            <p className="whitespace-pre-wrap">{data.text}</p>
                         </div>
                         <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
                             <Button
