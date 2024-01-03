@@ -58,9 +58,27 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $dir = 'img/icons';
+        $img_path = $request->file('icon')->store('public/' . $dir);
+        $filename = basename($img_path);
+
+        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update([
+            'name' => $request->name,
+            'title' => $request->title,
+            'text' => $request->text,
+            'icon' => $filename
+        ]);
+
+        $profile = User::where('id',Auth::user()->id)
+        ->where('invalid_flg', 0)
+        ->first();
+
+        return Inertia::render('OwnRecommendationList',[
+            'profile' => $profile
+        ]);
+
     }
 
     /**

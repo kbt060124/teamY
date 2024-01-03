@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class UserProfileController extends Controller
      */
     public function index($id)
     {
-        $profile = UserProfile::where('id',$id)
+        $profile = User::where('id',$id)
             ->where('invalid_flg', 0)
             ->first();
 
