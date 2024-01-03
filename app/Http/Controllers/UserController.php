@@ -79,14 +79,7 @@ class UserController extends Controller
             'icon' => $filename
         ]);
 
-        $profile = User::where('id',Auth::user()->id)
-        ->where('invalid_flg', 0)
-        ->first();
-
-        return Inertia::render('OwnRecommendationList',[
-            'profile' => $profile
-        ]);
-
+        return to_route('ownrecommendationlist');
     }
 
     /**
