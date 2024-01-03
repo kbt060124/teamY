@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPostRecommendController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::get('/ownrecommendationlist',  [UserController::class, 'index'])->middlew
 
 Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->middleware('auth')->name('ownprofile');
 Route::post('/ownprofile-edit', [UserController::class,"update"])->middleware('auth')->name('edit'); 
+
+Route::get('/ownrecommendations/{id}', [UserPostRecommendController::class,"index"])->middleware('auth')->name('ownrecommendations'); 
+Route::post('/ownrecommendations-edit', [UserPostRecommendController::class,"update"])->middleware('auth')->name('ownrecommendations.edit'); 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
