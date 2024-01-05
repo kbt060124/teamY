@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GuestRecommend;
 use App\Models\User;
+use App\Models\UserPost;
 use App\Models\UserPostRecommend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class UserPostRecommendController extends Controller
 {
@@ -45,7 +48,37 @@ class UserPostRecommendController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $recommends = new UserPostRecommend();
+        $recommends->user_id  = Auth::user()->id;
+        $recommends->recommended_user_id = $request->recommendedUserId;
+        $recommends->title   = $request->recommendTitle;
+        $recommends->text = $request->recommendText;
+        $recommends->save();
+
+        $recommendId = $recommends->id;
+
+        if(empty($request->recommendedUserId)){
+            $guests = new GuestRecommend();
+            $dir = 'img/icons';
+            $filename = '';
+            if(!empty($request->file('recommendIcon'))){
+                $img_path = $request->file('recommendIcon')->store('public/' . $dir);
+                $filename = basename($img_path);
+            }
+            $guests->recommend_id = $recommendId;
+            $guests->name = $request->recommendName;
+            $guests->icon = $filename;
+            $guests->save();
+        }
+
+        $posts = new UserPost();
+        $posts->user_id = Auth::user()->id;
+        $posts->type = 2;
+        $posts->post_id = $recommendId;
+        $posts->save();
+
+        return to_route('ownrecommendationlist');
+        
     }
 
     /**
@@ -72,8 +105,8 @@ class UserPostRecommendController extends Controller
         UserPostRecommend::where('user_id',Auth::user()->id)
             ->where('id', $request->recommendId)
             ->update([
-                'title' => $request->title,
-                'text' => $request->text
+                'title' => $request->recommendTitle,
+                'text' => $request->recommendText
              ]);
 
         return to_route('ownrecommendationlist');

@@ -19,7 +19,7 @@ class UserController extends Controller
             ->where('invalid_flg', 0)
             ->first();
 
-        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
+        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','user_post_recommends.id as post_recommend_id','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
             ->leftJoin('users', 'recommended_user_id', '=', 'users.id')
             ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
             ->where('user_id', Auth::user()->id)
@@ -88,5 +88,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getAllUser(Request $request)
+    {
+        return response()->json([
+            'allUser' => User::select('id as userId','name','title','icon')->where('invalid_flg', 0)->get()
+        ]);
     }
 }

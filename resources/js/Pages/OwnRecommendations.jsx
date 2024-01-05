@@ -41,19 +41,21 @@ const OwnRecommendations = (props) => {
                         className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative"
                     >
                         <div className="flex h-1/2">
-                            <div className="w-1/2 p-12 flex items-end">
+                            <div className="w-2/5 p-12 flex items-end">
                                 <div className="w-1/3 h-1/2 flex items-end">
                                     <img src={userImgPath} alt="" />
                                 </div>
-                                <div className="w-2/3">
+                                <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8">
+                                </div>
+                                <div className="w-1/2 h-full">
                                     {recommendedUserId ? (
-                                        <img src={recomendImgPath} alt="" />
+                                        <img src={recomendImgPath} alt="" className="object-cover w-full h-full"/>
                                     ) : (
-                                        <img src={guestImgPath} alt="" />
+                                        <img src={guestImgPath} alt="" className="object-cover w-full h-full"/>
                                     )}
                                 </div>
                             </div>
-                            <div className="w-1/2 pl-8 pr-20 py-12">
+                            <div className="w-3/5 pl-8 pr-20 py-12">
                                 {recommendedUserId ? (
                                     <div className="name mb-8 text-4xl font-bold">
                                         {data.name}
@@ -101,19 +103,21 @@ const OwnRecommendations = (props) => {
                 <>
                     <div className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative">
                         <div className="flex h-1/2">
-                            <div className="w-1/2  p-12 flex items-end">
+                            <div className="w-2/5  p-12 flex items-end">
                                 <div className="w-1/3  flex items-end">
                                     <img src={userImgPath} alt="" />
                                 </div>
-                                <div className="w-2/3">
+                                <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8">
+                                </div>
+                                <div className="w-1/2 h-full">
                                     {recommendedUserId ? (
-                                        <img src={recomendImgPath} alt="" />
+                                        <img src={recomendImgPath} alt="" className="object-cover w-full h-full"/>
                                     ) : (
-                                        <img src={guestImgPath} alt="" />
+                                        <img src={guestImgPath} alt="" className="object-cover w-full h-full"/>
                                     )}
                                 </div>
                             </div>
-                            <div className="w-1/2 px-8 py-12">
+                            <div className="w-3/5 px-8 py-12">
                                 {recommendedUserId ? (
                                     <div className="name mb-8 text-4xl font-bold">
                                         {data.name}

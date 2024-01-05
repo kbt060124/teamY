@@ -12,12 +12,15 @@ import {
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import SearchBar from "@/Components/SearchBar";
+import AddRecommendation from "@/Components/addRecommendation";
 
 export default function OwnRecommendationList(props) {
+    const recommendCnt = 3;
     const [open, setOpen] = useState(false);
 
     console.log(props.recommends);
-    const imgPath = "../storage/img/icons/" + props.profile.icon;
+    const storagePath = "../storage/img/icons/"
+    const imgPath = storagePath + props.profile.icon;
 
     const handleOpen = () => {
         setOpen(true);
@@ -25,9 +28,9 @@ export default function OwnRecommendationList(props) {
 
     const handleClose = () => {
         setOpen(false);
+        setEditMode(false);
     };
 
-    const imgName = props.profile.icon;
     const [editMode, setEditMode] = useState(false);
     const { data, setData, post } = useForm({
         id: props.profile.id,
@@ -35,17 +38,25 @@ export default function OwnRecommendationList(props) {
         title: props.profile.title,
         text: props.profile.text,
         icon: props.profile.icon,
+        recommendId: props.recommends.post_recommend_id,
+        recommendedUserId: props.recommended_user_id,
+        recommendName: props.recommends.name,
+        recommendTitle: props.recommends.title,
+        recommendText: props.recommends.text,
+        recommendIcon: props.recommends.icon,
+        guestName: props.recommends.guest_name,
+        guestIcon: props.recommends.guest_icon,
     });
     const [file, setFile] = useState(imgPath);
 
     const handleEdit = () => {
-        setEditMode((prev) => !prev);
+        setEditMode(true);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("edit"));
-        setEditMode((prev) => !prev);
+        setEditMode(false);
         setOpen(false);
     };
 
@@ -61,6 +72,55 @@ export default function OwnRecommendationList(props) {
             //base64形式の画像データをfileInfoに格納
             setFile(reader.result);
         };
+    };
+
+    const addAreaRoop =() => { 
+        let addAreas = [];
+        let addCnt = 0;
+        if(props.recommends.length < recommendCnt){
+            addCnt = recommendCnt - props.recommends.length;
+            for(let i=0; i<addCnt; i++){
+                addAreas.push(
+                    <AddRecommendation props={{userId:data.id, addCnt:i}} key="addArea"></AddRecommendation>
+                )
+            }
+            return addAreas;
+        }
+     }
+
+    // レコメンド詳細処理
+    // const recommendedUserId = props.recommends.recommended_user_id;
+    const [recommendEditMode, setRecommendEditMode] = useState(false);
+    const [recommendOpen, setRecommendOpen] = useState(false);
+
+    const handleRecommendOpen = (item) => {
+        setData((prev) => ({ ...prev, 
+            recommendId: item.post_recommend_id,
+            recommendedUserId: item.recommended_user_id,
+            recommendName:item.name,
+            recommendTitle:item.title,
+            recommendText:item.text,
+            recommendIcon:item.icon,
+            guestName:item.guest_name,
+            guestIcon:item.guest_icon
+        }));
+        setRecommendOpen(true);
+    };
+
+    const handleRecommendClose = () => {
+        setRecommendOpen(false);
+        setRecommendEditMode(false);
+    };
+
+    const handleRecommendEdit = () => {
+        setRecommendEditMode(true);
+    };
+
+    const handleRecommendSubmit = (e) => {
+        e.preventDefault();
+        post(route("ownrecommendations.edit"));
+        setRecommendEditMode(false);
+        setRecommendOpen(false);
     };
 
     return (
@@ -96,31 +156,36 @@ export default function OwnRecommendationList(props) {
                         {props.recommends.map((item) => (
                             <div
                                 className="my-5 flex items-center"
-                                key={item.id}
+                                key={item.post_recommend_id}
+                                onClick={() => handleRecommendOpen(item)}
                             >
                                 {item.icon ? (
                                     <img
                                         style={{ maxWidth: 200, height: 140 }}
-                                        src={`../img/icons/${item.icon}`}
+                                        src={storagePath+item.icon}
                                         alt=""
                                     />
                                 ) : (
                                     <img
                                         style={{ maxWidth: 200, height: 140 }}
-                                        src={`../img/icons/${item.guest_icon}`}
+                                        src={storagePath+item.guest_icon}
                                         alt=""
                                     />
                                 )}
                                 <div>
                                     {item.name ? (
-                                        <div>{item.name}</div>
+                                        <div className="font-bold">{item.name}</div>
                                     ) : (
-                                        <div>{item.guest_name}</div>
+                                        <div className="font-bold">{item.guest_name}</div>
                                     )}
+                                    <div className="font-bold">{item.title}</div>
                                     <div>{item.text}</div>
                                 </div>
                             </div>
                         ))}
+                    {/*新規追加 */}
+                    {addAreaRoop()}
+
                     </div>
                 </div>
                 <div></div>
@@ -218,6 +283,123 @@ export default function OwnRecommendationList(props) {
                         )}
                     </div>
                 </Modal>
+                
+                {/* レコメンド用のモーダル */}
+                <Modal open={recommendOpen} onClose={handleRecommendClose}>
+                <div className="flex items-center">
+            {recommendEditMode === true ? (
+                    <form
+                        onSubmit={handleRecommendSubmit}
+                        encType="multipart/form-data"
+                        className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                    >
+                        <div className="flex h-1/2">
+                            <div className="w-2/5 p-12 flex items-end">
+                                <div className="w-1/3 h-1/2 flex items-end">
+                                    <img src={imgPath} alt="" />
+                                </div>
+                                <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8">
+                                </div>
+                                <div className="w-1/2 h-full">
+                                    {data.recommendedUserId ? (
+                                        <img src={storagePath + data.recommendIcon} alt="" className="object-cover w-full h-full"/>
+                                    ) : (
+                                        <img src={storagePath + data.guestIcon} alt="" className="object-cover w-full h-full"/>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="w-3/5 pl-8 pr-20 py-12">
+                                {data.recommendedUserId ? (
+                                    <div className="recommnedName mb-8 text-4xl font-bold">
+                                        {data.recommendName}
+                                    </div>
+                                ) : (
+                                    <div className="recommnedName mb-8 text-4xl font-bold">
+                                        {data.guestName}
+                                    </div>
+                                )}
+                                <div className="title mb-4">
+                                    <TextField
+                                        name="recommnedTitle"
+                                        value={data.recommendTitle}
+                                        onChange={(e) =>
+                                            setData("recommendTitle", e.target.value)
+                                        }
+                                        className="w-full"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text text-xl h-2/3 px-20">
+                            <TextareaAutosize
+                                name="recommendText"
+                                multiline="true"
+                                value={data.recommendText}
+                                onChange={(e) =>
+                                    setData("recommendText", e.target.value)
+                                }
+                                className="w-full h-2/3"
+                            />
+                        </div>
+                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                            <Button
+                                variant="contained"
+                                size="large"
+                                type="submit"
+                            >
+                                確定
+                            </Button>
+                        </div>
+                    </form>
+            ) : (
+                    <div className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white">
+                        <div className="flex h-1/2">
+                            <div className="w-2/5  p-12 flex items-end">
+                                <div className="w-1/3  flex items-end">
+                                    <img src={imgPath} alt="" />
+                                </div>
+                                <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8">
+                                </div>
+                                <div className="w-1/2 h-full">
+                                    {data.recommendedUserId ? (
+                                        <img src={storagePath + data.recommendIcon} alt="" className="object-cover w-full h-full"/>
+                                    ) : (
+                                        <img src={storagePath + data.guestIcon} alt="" className="object-cover w-full h-full"/>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="w-3/5 px-8 py-12">
+                                {data.recommendedUserId ? (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.recommendName}
+                                    </div>
+                                ) : (
+                                    <div className="name mb-8 text-4xl font-bold">
+                                        {data.guestName}
+                                    </div>
+                                )}
+                                <div className="title mb-8 text-xl font-bold">
+                                    {data.recommendTitle}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text text-xl h-2/3 px-20">
+                            <p className="whitespace-pre-wrap">{data.recommendText}</p>
+                        </div>
+                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                            <Button
+                                variant="contained"
+                                size="large"
+                                onClick={() => handleRecommendEdit()}
+                            >
+                                編集
+                            </Button>
+                        </div>
+                    </div>
+            )}
+        </div>
+                </Modal>
+                
             </div>
         </div>
     );
