@@ -102,12 +102,28 @@ class UserPostRecommendController extends Controller
      */
     public function update(Request $request)
     {
+
         UserPostRecommend::where('user_id',Auth::user()->id)
             ->where('id', $request->recommendId)
             ->update([
                 'title' => $request->recommendTitle,
                 'text' => $request->recommendText
              ]);
+
+            if(empty($request->recommendedUserId)){
+                $dir = 'img/icons';
+                $filename = '';
+                $contents = array();
+                
+                $contents['name'] = $request->guestName;
+
+                if(!empty($request->file('guestIcon'))){
+                    $img_path = $request->file('guestIcon')->store('public/' . $dir);
+                    $filename = basename($img_path);
+                    $contents['icon'] = $filename;
+                }
+                GuestRecommend::where('recommend_id', $request->recommendId)->update($contents);
+            }
 
         return to_route('ownrecommendationlist');
     }

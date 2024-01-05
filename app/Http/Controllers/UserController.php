@@ -69,15 +69,19 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $dir = 'img/icons';
-        $img_path = $request->file('icon')->store('public/' . $dir);
-        $filename = basename($img_path);
+        $contents = array();
 
-        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update([
-            'name' => $request->name,
-            'title' => $request->title,
-            'text' => $request->text,
-            'icon' => $filename
-        ]);
+        $contents['name'] = $request->name;
+        $contents['title'] = $request->title;
+        $contents['text'] = $request->text;
+
+        if(!empty($request->file('icon'))){
+            $img_path = $request->file('icon')->store('public/' . $dir);
+            $filename = basename($img_path);
+            $contents['icon'] = $filename;
+        }
+
+        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update($contents);
 
         return to_route('ownrecommendationlist');
     }
