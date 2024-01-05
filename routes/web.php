@@ -29,12 +29,14 @@ Route::get('/', function () {
 });
 
 Route::get('/ownrecommendationlist',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('ownrecommendationlist');
+Route::get('/getuser', [UserController::class,"getAllUser"])->middleware('auth')->name('get.user'); 
 
 Route::get('/ownprofile/{id}', [UserProfileController::class, 'index'])->middleware('auth')->name('ownprofile');
 Route::post('/ownprofile-edit', [UserController::class,"update"])->middleware('auth')->name('edit'); 
 
 Route::get('/ownrecommendations/{id}', [UserPostRecommendController::class,"index"])->middleware('auth')->name('ownrecommendations'); 
 Route::post('/ownrecommendations-edit', [UserPostRecommendController::class,"update"])->middleware('auth')->name('ownrecommendations.edit'); 
+Route::post('/ownrecommendations-store', [UserPostRecommendController::class,"store"])->middleware('auth')->name('ownrecommendations.store'); 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

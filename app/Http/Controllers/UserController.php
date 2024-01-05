@@ -19,7 +19,7 @@ class UserController extends Controller
             ->where('invalid_flg', 0)
             ->first();
 
-        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
+        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','user_post_recommends.id as post_recommend_id','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
             ->leftJoin('users', 'recommended_user_id', '=', 'users.id')
             ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
             ->where('user_id', Auth::user()->id)
@@ -69,15 +69,19 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $dir = 'img/icons';
-        $img_path = $request->file('icon')->store('public/' . $dir);
-        $filename = basename($img_path);
+        $contents = array();
 
-        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update([
-            'name' => $request->name,
-            'title' => $request->title,
-            'text' => $request->text,
-            'icon' => $filename
-        ]);
+        $contents['name'] = $request->name;
+        $contents['title'] = $request->title;
+        $contents['text'] = $request->text;
+
+        if(!empty($request->file('icon'))){
+            $img_path = $request->file('icon')->store('public/' . $dir);
+            $filename = basename($img_path);
+            $contents['icon'] = $filename;
+        }
+
+        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update($contents);
 
         return to_route('ownrecommendationlist');
     }
@@ -88,5 +92,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getAllUser(Request $request)
+    {
+        return response()->json([
+            'allUser' => User::select('id as userId','name','title','icon')->where('invalid_flg', 0)->get()
+        ]);
     }
 }
