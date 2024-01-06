@@ -100,4 +100,14 @@ class UserController extends Controller
             'allUser' => User::select('id as userId','name','title','icon')->where('invalid_flg', 0)->get()
         ]);
     }
+
+    public function getUserInfo()
+    {
+        return response()->json([
+            'userInfo' => User::select('id as userId','name','icon')
+                ->where('id',Auth::user()->id)
+                ->where('invalid_flg', 0)
+                ->first()
+        ]);
+    }
 }
