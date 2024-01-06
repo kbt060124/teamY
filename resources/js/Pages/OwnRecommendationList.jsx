@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import SearchBar from "@/Components/SearchBar";
-import AddRecommendation from "@/Components/addRecommendation";
+import AddRecommendation from "@/Components/AddRecommendation";
 
 export default function OwnRecommendationList(props) {
     const recommendCnt = 3;

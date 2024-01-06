@@ -19,7 +19,7 @@ class UserController extends Controller
             ->where('invalid_flg', 0)
             ->first();
 
-        $recommends = UserPostRecommend::select('users.*','user_post_recommends.*','user_post_recommends.id as post_recommend_id','guest_recommends.name as guest_name','guest_recommends.icon as guest_icon')
+        $recommends = UserPostRecommend::select('users.*', 'user_post_recommends.*', 'user_post_recommends.id as post_recommend_id', 'guest_recommends.name as guest_name', 'guest_recommends.icon as guest_icon')
             ->leftJoin('users', 'recommended_user_id', '=', 'users.id')
             ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
             ->where('user_id', Auth::user()->id)
@@ -50,9 +50,20 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request)
     {
-        //
+        return Inertia::render('Search', [
+            'searchUser' => User::select('id as userId', 'name', 'title', 'icon')
+                ->where('name', 'LIKE', '%' . $request->search . '%')
+                ->where('invalid_flg', 0)
+                ->get(),
+            'searchRecommend' => UserPostRecommend::select('users.*', 'user_post_recommends.*', 'user_post_recomumends.id as post_recommend_id', 'guest_recommends.name as guest_name', 'guest_recommends.icon as guest_icon')
+                ->leftJoin('users as a', 'recommended_user_id', '=', 'users.id')
+                ->leftJoin('users as b', 'user_id', '=', 'users.id')
+                ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
+                ->where('name', '%' . $request->search . '%')
+                ->get()
+        ]);
     }
 
     /**
@@ -75,13 +86,13 @@ class UserController extends Controller
         $contents['title'] = $request->title;
         $contents['text'] = $request->text;
 
-        if(!empty($request->file('icon'))){
+        if (!empty($request->file('icon'))) {
             $img_path = $request->file('icon')->store('public/' . $dir);
             $filename = basename($img_path);
             $contents['icon'] = $filename;
         }
 
-        User::where('id',Auth::user()->id)->where('invalid_flg', 0)->update($contents);
+        User::where('id', Auth::user()->id)->where('invalid_flg', 0)->update($contents);
 
         return to_route('ownrecommendationlist');
     }
@@ -97,7 +108,7 @@ class UserController extends Controller
     public function getAllUser(Request $request)
     {
         return response()->json([
-            'allUser' => User::select('id as userId','name','title','icon')->where('invalid_flg', 0)->get()
+            'allUser' => User::select('id as userId', 'name', 'title', 'icon')->where('invalid_flg', 0)->get()
         ]);
     }
 }

@@ -38,6 +38,8 @@ Route::get('/ownrecommendations/{id}', [UserPostRecommendController::class,"inde
 Route::post('/ownrecommendations-edit', [UserPostRecommendController::class,"update"])->middleware('auth')->name('ownrecommendations.edit'); 
 Route::post('/ownrecommendations-store', [UserPostRecommendController::class,"store"])->middleware('auth')->name('ownrecommendations.store'); 
 
+Route::get('/search', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('search');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

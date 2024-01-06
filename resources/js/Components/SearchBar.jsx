@@ -1,26 +1,30 @@
 import React, { useState } from 'react'
+import { useForm } from "@inertiajs/react";
 import { Box, TextField, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
 const SearchBar = () => {
-    const [query, setQuery] = useState('')
+    const { data, setData ,get } = useForm({
+        search: ""
+    })
 
     const handleChange = e => {
-        setQuery(e.target.value)
+        setData("search", e.target.value)
+        console.log(data);
     }
 
-    const searchQuery = e => {
+    const handleSubmit = e => {
         e.preventDefault();
-        if (!query.trim()) {
+        if (!data.search.trim()) {
             return
         }
-        // router.push(`search?query=${encodeURIComponent(query)}`)
+        get(route("search"))
     }
 
     return (
         <Box
             component={'form'}
-            onSubmit={searchQuery}
+            onSubmit={handleSubmit}
             sx={{
                 width: '80%',
                 margin: '3% auto',
