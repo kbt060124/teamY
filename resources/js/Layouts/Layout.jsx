@@ -1,6 +1,5 @@
 import Sidebar from "@/Components/Sidebar";
 import { usePage } from "@inertiajs/react";
-import { useEffect, useState } from "react";
 
 const Layout = ({ children }) => {
 

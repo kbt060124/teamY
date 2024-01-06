@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
-import { SidebarData } from './SidebarData'
+import { SidebarData } from '../Data/SidebarData'
 
 const Sidebar = (props) => {
   SidebarData[0]["title"] = props.name;
