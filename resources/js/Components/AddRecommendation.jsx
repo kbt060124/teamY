@@ -90,7 +90,7 @@ const AddRecommendation = (props) => {
         } else {
             cancelSlect();
         }
-        console.log(`Option selected:`, selectVal);
+
     };
 
     const handleSubmit = (e) => {
@@ -104,7 +104,6 @@ const AddRecommendation = (props) => {
             <div
                 className="my-5 flex items-center"
                 onClick={() => handleOpen()}
-                key={props.addCnt}
             >
                 <div className="bg-gray-200">
                     <div className="text-5xl pt-8 text-center">+</div>
