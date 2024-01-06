@@ -34,7 +34,6 @@ Route::get('/home', function(){
 
 Route::get('/ownrecommendationlist',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('ownrecommendationlist');
 Route::get('/getuser', [UserController::class,"getAllUser"])->middleware('auth')->name('get.user'); 
-Route::get('/getuserInfo', [UserController::class,"getUserInfo"])->middleware('auth')->name('get.userInfo'); 
 
 Route::post('/ownprofile-edit', [UserController::class,"update"])->middleware('auth')->name('edit'); 
 
