@@ -1,7 +1,7 @@
 export const SidebarData = [
   {
     title: 'Own Post',
-    link: '/home'
+    link: '/owntimeline'
   },
   {
     title: '紹介一覧',

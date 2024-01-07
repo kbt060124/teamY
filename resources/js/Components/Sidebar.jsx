@@ -4,6 +4,7 @@ import { SidebarData } from '../Data/SidebarData'
 
 const Sidebar = (props) => {
   SidebarData[0]["title"] = props.name;
+  SidebarData[0]["link"] = '/owntimeline/' + props.id;
   const storagePath = "../storage/img/icons/";
   return (
     <div className="sidebar h-full w-1/6 bg-white border-r-2 border-gray-200">

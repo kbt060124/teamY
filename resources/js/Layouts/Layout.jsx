@@ -2,14 +2,15 @@ import Sidebar from "@/Components/Sidebar";
 import { usePage } from "@inertiajs/react";
 
 const Layout = ({ children }) => {
-
+    
+  const userId = usePage().props.auth.user.id;
   const userName = usePage().props.auth.user.name;
   const userIcon = usePage().props.auth.user.icon;
 
     return (
         <div className="flex w-full h-screen">
-            <Sidebar name={userName} icon={userIcon}/>
-            <main>{children}</main>
+            <Sidebar id={userId} name={userName} icon={userIcon} className="w-1/6"/>
+            <main className="w-5/6">{children}</main>
         </div>
     );
 };

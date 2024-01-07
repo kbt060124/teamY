@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPost;
 use App\Models\UserPostNews;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserPostNewsController extends Controller
 {
@@ -28,7 +30,19 @@ class UserPostNewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $news = new UserPostNews();
+        $news->user_id  = Auth::user()->id;
+        $news->title   = $request->title;
+        $news->news = $request->news;
+        $news->save();
+        $newsId = $news->id;
+
+        $posts = new UserPost();
+        $posts->user_id = Auth::user()->id;
+        $posts->type = 1;
+        $posts->post_id = $newsId;
+        $posts->save();
+        return to_route('home');
     }
 
     /**
