@@ -19,11 +19,13 @@ class UserPostNewsSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 1,
+                'title' => '近況のタイトル',
                 'news' => 'ログインユーザ自身が近況を記載します。'
             ],
             [
                 'id' => 2,
                 'user_id' => 2,
+                'title' => '初仕事！',
                 'news' => '今日は山田さんと初仕事でした。'
             ]
         ];
