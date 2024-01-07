@@ -41,6 +41,7 @@ Route::post('/ownrecommendations-edit', [UserPostRecommendController::class,"upd
 Route::post('/ownrecommendations-store', [UserPostRecommendController::class,"store"])->middleware('auth')->name('ownrecommendations.store'); 
 
 Route::post('/ownnews-store', [UserPostNewsController::class,"store"])->middleware('auth')->name('ownnews.store');
+Route::get('/search', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
