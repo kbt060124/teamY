@@ -12,13 +12,13 @@ import {
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import SearchBar from "@/Components/SearchBar";
+import Layout from "@/Layouts/Layout";
 import AddRecommendation from "@/Components/AddRecommendation";
 
 export default function OwnRecommendationList(props) {
     const recommendCnt = 3;
     const [open, setOpen] = useState(false);
 
-    console.log(props.recommends);
     const storagePath = "../storage/img/icons/";
     const imgPath = storagePath + props.profile.icon;
 
@@ -73,20 +73,16 @@ export default function OwnRecommendationList(props) {
         };
     };
 
-    const addAreaRoop = () => {
-        let addAreas = [];
+    const addArea = () => {
         let addCnt = 0;
         if (props.recommends.length < recommendCnt) {
             addCnt = recommendCnt - props.recommends.length;
-            for (let i = 0; i < addCnt; i++) {
-                addAreas.push(
-                    <AddRecommendation
-                        props={{ userId: data.id, addCnt: i }}
+            return (
+                <AddRecommendation
+                        props={{ userId: data.id}}
                         key="addArea"
-                    ></AddRecommendation>
-                );
-            }
-            return addAreas;
+                />
+            );
         }
     };
 
@@ -141,134 +137,302 @@ export default function OwnRecommendationList(props) {
             //base64形式の画像データをfileInfoに格納
             setRecommendFile(reader.result);
         };
-    };
+    };     
 
     return (
-        <div className="h-screen">
-            <SearchBar />
-            <div className="flex">
-                <div
-                    className="ml-24 h-4/5 w-1/4 flex items-center"
-                    onClick={handleOpen}
-                >
-                    <Card sx={{ maxWidth: 200 }}>
-                        <CardMedia
-                            sx={{ height: 140 }}
-                            image={imgPath}
-                            title="user icon"
-                        />
-                        <CardContent>
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                            >
-                                {props.profile.name}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {props.profile.text}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div className="h-4/5 w-2/4 flex justify-end items-center">
-                    <div>
-                        {props.recommends.map((item) => (
-                            <div
-                                className="my-5 flex items-center"
-                                key={item.post_recommend_id}
-                                onClick={() => handleRecommendOpen(item)}
-                            >
-                                {item.icon ? (
-                                    <img
-                                        style={{ maxWidth: 200, height: 140 }}
-                                        src={storagePath + item.icon}
-                                        alt=""
-                                    />
-                                ) : (
-                                    <img
-                                        style={{ maxWidth: 200, height: 140 }}
-                                        src={storagePath + item.guest_icon}
-                                        alt=""
-                                    />
-                                )}
-                                <div>
-                                    {item.name ? (
-                                        <div className="font-bold">
-                                            {item.name}
-                                        </div>
-                                    ) : (
-                                        <div className="font-bold">
-                                            {item.guest_name}
-                                        </div>
-                                    )}
-                                    <div className="font-bold">
-                                        {item.title}
-                                    </div>
-                                    <div>{item.text}</div>
-                                </div>
-                            </div>
-                        ))}
-                        {/*新規追加 */}
-                        {addAreaRoop()}
+        <Layout>
+            <div className="h-screen">
+                <div className="flex">
+                    <div
+                        className="ml-24 h-4/5 w-1/4 flex items-center"
+                        onClick={handleOpen}
+                    >
+                        <Card sx={{ maxWidth: 200 }}>
+                            <CardMedia
+                                sx={{ height: 140 }}
+                                image={imgPath}
+                                title="user icon"
+                            />
+                            <CardContent>
+                                <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                >
+                                    {props.profile.name}
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                >
+                                    {props.profile.text}
+                                </Typography>
+                            </CardContent>
+                        </Card>
                     </div>
-                </div>
-                <div></div>
-                <Modal open={open} onClose={handleClose}>
-                    <div className="flex items-center">
-                        {editMode === true ? (
-                            <form
-                                onSubmit={handleSubmit}
-                                encType="multipart/form-data"
-                                className="mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative bg-white"
-                            >
-                                <div className="w-1/3 h-1/2 p-12">
-                                    <img src={file} alt="" />
-
-                                    <Button
-                                        variant="contained"
-                                        component="label"
-                                    >
-                                        画像を選択
-                                        <input
-                                            type="file"
-                                            hidden
-                                            name="icon"
-                                            onChange={handleChangeImg}
-                                            accept="image/*"
+                    <div className="w-1/4"></div>
+                    <div className="h-4/5 w-2/4 flex justify-end items-center">
+                        <div>
+                            {props.recommends.map((item) => (
+                                <div
+                                    className="my-5 flex items-center"
+                                    key={item.post_recommend_id}
+                                    onClick={() => handleRecommendOpen(item)}
+                                >
+                                    {item.icon ? (
+                                        <img
+                                            style={{
+                                                maxWidth: 200,
+                                                height: 140,
+                                            }}
+                                            src={storagePath + item.icon}
+                                            alt=""
                                         />
-                                    </Button>
+                                    ) : (
+                                        <img
+                                            style={{
+                                                maxWidth: 200,
+                                                height: 140,
+                                            }}
+                                            src={storagePath + item.guest_icon}
+                                            alt=""
+                                        />
+                                    )}
+                                    <div>
+                                        {item.name ? (
+                                            <div className="font-bold">
+                                                {item.name}
+                                            </div>
+                                        ) : (
+                                            <div className="font-bold">
+                                                {item.guest_name}
+                                            </div>
+                                        )}
+                                        <div className="font-bold">
+                                            {item.title}
+                                        </div>
+                                        <div>{item.text}</div>
+                                    </div>
                                 </div>
-                                <div className="w-2/3 px-8 py-12">
-                                    <div className="name mb-4">
-                                        <TextField
-                                            name="name"
-                                            value={props.profile.name}
-                                            onChange={(e) =>
-                                                setData("name", e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="title mb-4">
-                                        <TextField
-                                            name="title"
-                                            value={props.profile.title}
-                                            onChange={(e) =>
-                                                setData("title", e.target.value)
-                                            }
-                                        />
-                                    </div>
+                            ))}
+                            {/*新規追加 */}
+                            {addArea()}
+                        </div>
+                    </div>
+                    <Modal open={open} onClose={handleClose}>
+                        <div className="flex items-center">
+                            {editMode === true ? (
+                                <form
+                                    onSubmit={handleSubmit}
+                                    encType="multipart/form-data"
+                                    className="mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                                >
+                                    <div className="w-1/3 h-1/2 p-12">
+                                        <img src={file} alt="" />
 
-                                    <div className="text text-xl h-2/5">
+                                        <Button
+                                            variant="contained"
+                                            component="label"
+                                        >
+                                            画像を選択
+                                            <input
+                                                type="file"
+                                                hidden
+                                                name="icon"
+                                                onChange={handleChangeImg}
+                                                accept="image/*"
+                                            />
+                                        </Button>
+                                    </div>
+                                    <div className="w-2/3 px-8 py-12">
+                                        <div className="name mb-4">
+                                            <TextField
+                                                name="name"
+                                                value={props.profile.name}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "name",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className="title mb-4">
+                                            <TextField
+                                                name="title"
+                                                value={props.profile.title}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "title",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="text text-xl h-2/5">
+                                            <TextareaAutosize
+                                                name="text"
+                                                value={props.profile.text}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "text",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                                            <Button
+                                                variant="contained"
+                                                size="large"
+                                                type="submit"
+                                            >
+                                                確定
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </form>
+                            ) : (
+                                <div className="bg-white mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative">
+                                    <div className="w-1/3 h-1/2 p-12">
+                                        <img src={imgPath} alt="" />
+                                    </div>
+                                    <div className="w-2/3 px-8 py-12">
+                                        <div className="name mb-8 text-4xl font-bold">
+                                            {props.profile.name}
+                                        </div>
+                                        <div className="title mb-8 text-xl font-bold">
+                                            {props.profile.title}
+                                        </div>
+                                        <div className="text text-xl h-2/5">
+                                            <p>{props.profile.text}</p>
+                                        </div>
+                                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                                            <Button
+                                                variant="contained"
+                                                size="large"
+                                                onClick={() => handleEdit()}
+                                            >
+                                                編集
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </Modal>
+
+                    {/* レコメンド用のモーダル */}
+                    <Modal open={recommendOpen} onClose={handleRecommendClose}>
+                        <div className="flex items-center">
+                            {recommendEditMode === true ? (
+                                <form
+                                    onSubmit={handleRecommendSubmit}
+                                    encType="multipart/form-data"
+                                    className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                                >
+                                    <div className="flex h-1/2">
+                                        <div className="w-2/5 p-12">
+                                            <div className="flex items-end">
+                                                <div className="w-1/3 h-1/2 flex items-end">
+                                                    <img src={imgPath} alt="" />
+                                                </div>
+                                                <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8"></div>
+                                                <div className="w-1/2 h-full">
+                                                    {data.recommendedUserId ? (
+                                                        <img
+                                                            src={
+                                                                storagePath +
+                                                                data.recommendIcon
+                                                            }
+                                                            alt=""
+                                                            className="object-cover w-full h-full"
+                                                        />
+                                                    ) : (
+                                                        <div>
+                                                            <img
+                                                                src={
+                                                                    recommendFile
+                                                                }
+                                                                alt=""
+                                                                className="object-cover w-full h-full"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {data.recommendedUserId ? (
+                                                <></>
+                                            ) : (
+                                                <div className="text-center mt-4">
+                                                    <Button
+                                                        variant="contained"
+                                                        component="label"
+                                                    >
+                                                        画像を選択
+                                                        <input
+                                                            type="file"
+                                                            hidden
+                                                            name="icon"
+                                                            onChange={
+                                                                handleChangeRecommendImg
+                                                            }
+                                                            accept="image/*"
+                                                        />
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="w-3/5 pl-8 pr-20 py-12">
+                                            {data.recommendedUserId ? (
+                                                <div className="recommnedName mb-8 text-4xl font-bold">
+                                                    {data.recommendName}
+                                                </div>
+                                            ) : (
+                                                <div className="recommnedName mb-8 text-4xl font-bold">
+                                                    <TextField
+                                                        name="name"
+                                                        value={data.guestName}
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "guestName",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            )}
+                                            <div className="title mb-4">
+                                                <TextField
+                                                    name="recommnedTitle"
+                                                    value={data.recommendTitle}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "recommendTitle",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    className="w-full"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="text text-xl h-2/3 px-20">
                                         <TextareaAutosize
-                                            name="text"
-                                            value={props.profile.text}
+                                            name="recommendText"
+                                            multiline="true"
+                                            value={data.recommendText}
                                             onChange={(e) =>
-                                                setData("text", e.target.value)
+                                                setData(
+                                                    "recommendText",
+                                                    e.target.value
+                                                )
                                             }
+                                            className="w-full h-2/3"
                                         />
                                     </div>
-                                    <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                                    <div className="mx-12 mb-4 text-right">
                                         <Button
                                             variant="contained"
                                             size="large"
@@ -277,51 +441,12 @@ export default function OwnRecommendationList(props) {
                                             確定
                                         </Button>
                                     </div>
-                                </div>
-                            </form>
-                        ) : (
-                            <div className="bg-white mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative">
-                                <div className="w-1/3 h-1/2 p-12">
-                                    <img src={imgPath} alt="" />
-                                </div>
-                                <div className="w-2/3 px-8 py-12">
-                                    <div className="name mb-8 text-4xl font-bold">
-                                        {props.profile.name}
-                                    </div>
-                                    <div className="title mb-8 text-xl font-bold">
-                                        {props.profile.title}
-                                    </div>
-                                    <div className="text text-xl h-2/5">
-                                        <p>{props.profile.text}</p>
-                                    </div>
-                                    <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
-                                        <Button
-                                            variant="contained"
-                                            size="large"
-                                            onClick={() => handleEdit()}
-                                        >
-                                            編集
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Modal>
-
-                {/* レコメンド用のモーダル */}
-                <Modal open={recommendOpen} onClose={handleRecommendClose}>
-                    <div className="flex items-center">
-                        {recommendEditMode === true ? (
-                            <form
-                                onSubmit={handleRecommendSubmit}
-                                encType="multipart/form-data"
-                                className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
-                            >
-                                <div className="flex h-1/2">
-                                    <div className="w-2/5 p-12">
-                                        <div className="flex items-end">
-                                            <div className="w-1/3 h-1/2 flex items-end">
+                                </form>
+                            ) : (
+                                <div className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white">
+                                    <div className="flex h-1/2">
+                                        <div className="w-2/5  p-12 flex items-end">
+                                            <div className="w-1/3  flex items-end">
                                                 <img src={imgPath} alt="" />
                                             </div>
                                             <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8"></div>
@@ -336,160 +461,54 @@ export default function OwnRecommendationList(props) {
                                                         className="object-cover w-full h-full"
                                                     />
                                                 ) : (
-                                                    <div>
-                                                        <img
-                                                            src={recommendFile}
-                                                            alt=""
-                                                            className="object-cover w-full h-full"
-                                                        />
-                                                    </div>
+                                                    <img
+                                                        src={
+                                                            storagePath +
+                                                            data.guestIcon
+                                                        }
+                                                        alt=""
+                                                        className="object-cover w-full h-full"
+                                                    />
                                                 )}
                                             </div>
                                         </div>
-                                        {data.recommendedUserId ? (
-                                            <></>
-                                        ) : (
-                                            <div className="text-center mt-4">
-                                                <Button
-                                                    variant="contained"
-                                                    component="label"
-                                                >
-                                                    画像を選択
-                                                    <input
-                                                        type="file"
-                                                        hidden
-                                                        name="icon"
-                                                        onChange={
-                                                            handleChangeRecommendImg
-                                                        }
-                                                        accept="image/*"
-                                                    />
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="w-3/5 pl-8 pr-20 py-12">
-                                        {data.recommendedUserId ? (
-                                            <div className="recommnedName mb-8 text-4xl font-bold">
-                                                {data.recommendName}
-                                            </div>
-                                        ) : (
-                                            <div className="recommnedName mb-8 text-4xl font-bold">
-                                                <TextField
-                                                    name="name"
-                                                    value={data.guestName}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "guestName",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="title mb-4">
-                                            <TextField
-                                                name="recommnedTitle"
-                                                value={data.recommendTitle}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "recommendTitle",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                className="w-full"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="text text-xl h-2/3 px-20">
-                                    <TextareaAutosize
-                                        name="recommendText"
-                                        multiline="true"
-                                        value={data.recommendText}
-                                        onChange={(e) =>
-                                            setData(
-                                                "recommendText",
-                                                e.target.value
-                                            )
-                                        }
-                                        className="w-full h-2/3"
-                                    />
-                                </div>
-                                <div className="mx-12 mb-4 text-right">
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        type="submit"
-                                    >
-                                        確定
-                                    </Button>
-                                </div>
-                            </form>
-                        ) : (
-                            <div className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white">
-                                <div className="flex h-1/2">
-                                    <div className="w-2/5  p-12 flex items-end">
-                                        <div className="w-1/3  flex items-end">
-                                            <img src={imgPath} alt="" />
-                                        </div>
-                                        <div className="w-1/6 h-1/3 border-solid border-b-4 mb-8"></div>
-                                        <div className="w-1/2 h-full">
+                                        <div className="w-3/5 px-8 py-12">
                                             {data.recommendedUserId ? (
-                                                <img
-                                                    src={
-                                                        storagePath +
-                                                        data.recommendIcon
-                                                    }
-                                                    alt=""
-                                                    className="object-cover w-full h-full"
-                                                />
+                                                <div className="name mb-8 text-4xl font-bold">
+                                                    {data.recommendName}
+                                                </div>
                                             ) : (
-                                                <img
-                                                    src={
-                                                        storagePath +
-                                                        data.guestIcon
-                                                    }
-                                                    alt=""
-                                                    className="object-cover w-full h-full"
-                                                />
+                                                <div className="name mb-8 text-4xl font-bold">
+                                                    {data.guestName}
+                                                </div>
                                             )}
+                                            <div className="title mb-8 text-xl font-bold">
+                                                {data.recommendTitle}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="w-3/5 px-8 py-12">
-                                        {data.recommendedUserId ? (
-                                            <div className="name mb-8 text-4xl font-bold">
-                                                {data.recommendName}
-                                            </div>
-                                        ) : (
-                                            <div className="name mb-8 text-4xl font-bold">
-                                                {data.guestName}
-                                            </div>
-                                        )}
-                                        <div className="title mb-8 text-xl font-bold">
-                                            {data.recommendTitle}
-                                        </div>
+                                    <div className="text text-xl h-2/3 px-20">
+                                        <p className="whitespace-pre-wrap">
+                                            {data.recommendText}
+                                        </p>
+                                    </div>
+                                    <div className="mx-12 mb-4 text-right">
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            onClick={() =>
+                                                handleRecommendEdit()
+                                            }
+                                        >
+                                            編集
+                                        </Button>
                                     </div>
                                 </div>
-                                <div className="text text-xl h-2/3 px-20">
-                                    <p className="whitespace-pre-wrap">
-                                        {data.recommendText}
-                                    </p>
-                                </div>
-                                <div className="mx-12 mb-4 text-right">
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        onClick={() => handleRecommendEdit()}
-                                    >
-                                        編集
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Modal>
+                            )}
+                        </div>
+                    </Modal>
+                </div>
             </div>
-        </div>
+        </Layout>
     );
 }

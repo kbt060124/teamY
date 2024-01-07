@@ -26,8 +26,8 @@ const SearchBar = () => {
             component={'form'}
             onSubmit={handleSubmit}
             sx={{
-                width: '80%',
-                margin: '3% auto',
+                width: '50%',
+                margin: 'auto',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
