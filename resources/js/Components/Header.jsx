@@ -5,14 +5,14 @@ import SmsIcon from "@mui/icons-material/Sms";
 import { Link } from "@inertiajs/react";
 
 const Header = () => {
-    const storagePath = "../storage/img/icons/";
+    const storagePath = "../storage/img/";
 
     return (
         <div className="w-full border-b-2 border-gray-200 flex items-center">
             <Link href="/home">
                 <img
                     className="object-contain"
-                    src="img/welcome/TRUST_black.png"
+                    src={storagePath + "welcome/TRUST_black.png"}
                 />
             </Link>
             <SearchBar />
