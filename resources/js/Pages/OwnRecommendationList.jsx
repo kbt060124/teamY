@@ -142,7 +142,6 @@ export default function OwnRecommendationList(props) {
     return (
         <Layout>
             <div className="h-screen">
-                <SearchBar />
                 <div className="flex">
                     <div
                         className="ml-24 h-4/5 w-1/4 flex items-center"
