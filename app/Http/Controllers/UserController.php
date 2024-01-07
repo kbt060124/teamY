@@ -33,6 +33,27 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function recommendationList($id)
+    {
+        $profile = User::where('id', $id)
+            ->where('invalid_flg', 0)
+            ->first();
+
+        $recommends = UserPostRecommend::select('users.*', 'user_post_recommends.*', 'user_post_recommends.id as post_recommend_id', 'guest_recommends.name as guest_name', 'guest_recommends.icon as guest_icon')
+            ->leftJoin('users', 'recommended_user_id', '=', 'users.id')
+            ->leftJoin('guest_recommends', 'user_post_recommends.id', '=', 'recommend_id')
+            ->where('user_id', $id)
+            ->get();
+
+        return Inertia::render('RecommendationList', [
+            'profile' => $profile,
+            'recommends' => $recommends
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
