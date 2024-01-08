@@ -8,24 +8,35 @@ const Search = (props) => {
     return (
         <div>
             <Layout>
-                <div>User</div>
+            <div className="h-screen overflow-y-scroll">
+            <div className="w-2/3 mx-auto">
+            <p className="mt-4 text-2xl font-bold">検索結果 <span>{props.searchUser.length + props.searchRecommend.length }</span>件</p>
+                <div className="mt-4 text-xl font-bold">User</div>
                 {props.searchUser.map((item, key) => (
-                    <Link key={key} href={"/recommendationlist/"+item.userId}>
+                    <Link key={key} href={"../recommendationlist/"+item.userId}>
                         <div className="flex w-full bg-gray-100 p-4 mt-4">
                             <div className="img w-1/6">
                                 <img src={storagePath + item.icon} alt="" />
                             </div>
-                            <div className="w-5/6">
-                                <p>{item.name}</p>
-                                <p>{item.title}</p>
+                            <div className="w-5/6" href="">
+                            <div className="ml-2 mb-2">
+                                <p className="name">
+                                    <span className="font-bold">
+                                        {item.name}
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="bg-white ml-4 p-4">
+                                <p className="title font-bold">{item.title}</p>
                                 <p>{item.text}</p>
                             </div>
                         </div>
+                        </div>
                     </Link>
                 ))}
-                <div>Recommend</div>
+                <div className="mt-4 text-xl font-bold">Recommend</div>
                 {props.searchRecommend.map((item, key) => (
-                    <Link key={key} href={"/recommendationlist/"+item.user_id}>                    
+                    <Link key={key} href={"../recommendationlist/"+item.user_id}>                    
                     <div className="flex w-full bg-gray-100 p-4 mt-4">
                         <div className="img w-1/6">
                             <img src={storagePath + item.user_icon} alt="" />
@@ -63,6 +74,9 @@ const Search = (props) => {
                     </div>
                     </Link>                    
                 ))}
+                </div>
+            </div>
+            
             </Layout>
         </div>
     );
