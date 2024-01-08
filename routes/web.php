@@ -31,17 +31,17 @@ Route::get('/', function () {
 
 Route::get('/home', [UserPostController::class, 'index'])->name('home');
 Route::get('/owntimeline/{id}', [UserPostController::class, 'show'])->name('owntimeline');
-
 Route::get('/ownrecommendationlist', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('ownrecommendationlist');
-Route::get('/getuser', [UserController::class,"getAllUser"])->middleware('auth')->name('get.user'); 
-
-Route::post('/ownprofile-edit', [UserController::class,"update"])->middleware('auth')->name('edit'); 
-
-Route::post('/ownrecommendations-edit', [UserPostRecommendController::class,"update"])->middleware('auth')->name('ownrecommendations.edit'); 
-Route::post('/ownrecommendations-store', [UserPostRecommendController::class,"store"])->middleware('auth')->name('ownrecommendations.store'); 
-
-Route::post('/ownnews-store', [UserPostNewsController::class,"store"])->middleware('auth')->name('ownnews.store');
+Route::get('/recommendationlist/{id}', [UserController::class, 'recommendationList'])->middleware(['auth', 'verified'])->name('recommendationlist');
 Route::get('/search', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('search');
+
+Route::get('/getuser', [UserController::class, "getAllUser"])->middleware('auth')->name('get.user');
+Route::post('/ownprofile-edit', [UserController::class, "update"])->middleware('auth')->name('edit');
+
+Route::post('/ownrecommendations-edit', [UserPostRecommendController::class, "update"])->middleware('auth')->name('ownrecommendations.edit');
+Route::post('/ownrecommendations-store', [UserPostRecommendController::class, "store"])->middleware('auth')->name('ownrecommendations.store');
+
+Route::post('/ownnews-store', [UserPostNewsController::class, "store"])->middleware('auth')->name('ownnews.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
