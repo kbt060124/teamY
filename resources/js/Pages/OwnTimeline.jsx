@@ -1,17 +1,17 @@
 import AddPost from "@/Components/AddPost";
 import Layout from "@/Layouts/Layout";
-import { Button } from "@mui/material";
-import React, { useState } from "react";
+import { usePage } from "@inertiajs/react";
+import React from "react";
 
 const OwnTimeline = (props) => {
+    const authUserId = usePage().props.auth.user.id;
     const storagePath = "../storage/img/icons/";
     return (
         <Layout>
             <div className="w-full h-screen overflow-y-scroll">
                 <div className="timeline flex justify-center">
                     <div className="w-2/3">
-                      
-                      <AddPost id={props.posts.user_id}/>
+                        <AddPost id={props.posts.user_id} />
                         {props.posts.map((item, key) => (
                             <div key={key}>
                                 {item.type == 1 && (
@@ -28,6 +28,7 @@ const OwnTimeline = (props) => {
                                                     <span className="font-bold">
                                                         {item.name}
                                                     </span>
+                                                    さんが、近状アップデートを投稿しました。
                                                 </p>
                                                 <p className="text-gray-500">
                                                     {item.date}
@@ -52,11 +53,25 @@ const OwnTimeline = (props) => {
                                         </div>
                                         <div className="w-5/6">
                                             <div className="ml-2 mb-2">
-                                                <p className="name">
-                                                    <span className="font-bold">
-                                                        {item.name}
-                                                    </span>
-                                                </p>
+                                                {item.user_id == authUserId ? (
+                                                    <p className="name">
+                                                        <span className="font-bold">
+                                                            {item.name}
+                                                        </span>
+                                                        さんが、新しい「いいよ」を投稿しました。
+                                                    </p>
+                                                ) : (
+                                                    <p className="name">
+                                                        <span className="font-bold">
+                                                            {item.recommended_name}
+                                                        </span>
+                                                        さんが、
+                                                        <span className="font-bold">
+                                                            {item.name}
+                                                        </span>
+                                                        さんに「いいよ」されました。
+                                                    </p>
+                                                )}
                                                 <p className="text-gray-500">
                                                     {item.date}
                                                 </p>
@@ -99,16 +114,29 @@ const OwnTimeline = (props) => {
                                         </div>
                                         <div className="w-5/6">
                                             <div className="ml-2 mb-2">
-                                                <p className="name">
-                                                    <span className="font-bold">
-                                                        {item.thanks_name}
-                                                    </span>
-                                                    さんが、
-                                                    <span className="font-bold">
-                                                        {item.name}
-                                                    </span>
-                                                    から「ありがとう」されました。
-                                                </p>
+                                                {item.user_id == authUserId ? (
+                                                    <p className="name">
+                                                        <span className="font-bold">
+                                                            {item.name}
+                                                        </span>
+                                                        さんが、
+                                                        <span className="font-bold">
+                                                            {item.thanks_name}
+                                                        </span>
+                                                        に「ありがとう」しました。
+                                                    </p>
+                                                ) : (
+                                                    <p className="name">
+                                                        <span className="font-bold">
+                                                            {item.thanks_name}
+                                                        </span>
+                                                        さんが、
+                                                        <span className="font-bold">
+                                                            {item.name}
+                                                        </span>
+                                                        から「ありがとう」されました。
+                                                    </p>
+                                                )}
                                                 <p className="text-gray-500">
                                                     {item.date}
                                                 </p>
@@ -138,12 +166,11 @@ const OwnTimeline = (props) => {
                             </div>
                         ))}
                     </div>
-                    
                 </div>
-                
             </div>
         </Layout>
     );
 };
 
 export default OwnTimeline;
+
