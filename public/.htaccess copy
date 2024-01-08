@@ -4,7 +4,6 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /teamytest
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -13,11 +12,10 @@
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
-    # RewriteRule ^ %1 [L,R=301]
-    RewriteRule ^(.*)/$ /teamytest/$1 [L,R=301]
+    RewriteRule ^ %1 [L,R=301]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ /teamytest/index.php [L]
+    RewriteRule ^ index.php [L]
 </IfModule>

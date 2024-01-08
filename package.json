@@ -19,6 +19,9 @@
         "tailwindcss": "^3.2.1",
         "vite": "^5.0.0"
     },
+    "homepage": "/teamytest/",
+    "name": "teamytest",
+    "version": "0.1.0",
     "dependencies": {
         "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",

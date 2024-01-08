@@ -5,7 +5,7 @@ export const SidebarData = [
   },
   {
     title: '紹介一覧',
-    link: '/ownrecommendationlist'
+    link: route('ownrecommendationlist')
   },
   {
     title: '友達リスト',
