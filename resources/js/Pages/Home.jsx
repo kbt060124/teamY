@@ -1,6 +1,7 @@
 import AddPost from "@/Components/AddPost";
 import Layout from "@/Layouts/Layout";
 import React from "react";
+import { useEffect } from "react";
 
 const Home = (props) => {
     const storagePath = "../storage/img/icons/";
