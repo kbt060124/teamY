@@ -164,6 +164,7 @@ const AddRecommendation = (props) => {
                                 isSearchable={true}
                                 noOptionsMessage={() => "No User"}
                                 className="mb-4"
+                                required
                             />
 
                             <div className="name mb-4">
@@ -175,6 +176,7 @@ const AddRecommendation = (props) => {
                                         value={data.recommendName}
                                         className="w-full"
                                         variant="filled"
+                                        required
                                     />
                                 ) : (
                                     <TextField
@@ -187,6 +189,7 @@ const AddRecommendation = (props) => {
                                                 e.target.value
                                             )
                                         }
+                                        required
                                     />
                                 )}
                             </div>
@@ -201,6 +204,7 @@ const AddRecommendation = (props) => {
                                             e.target.value
                                         )
                                     }
+                                    required
                                 />
                             </div>
 
@@ -213,6 +217,7 @@ const AddRecommendation = (props) => {
                                     onChange={(e) =>
                                         setData("recommendText", e.target.value)
                                     }
+                                    required
                                 />
                             </div>
                             <div className="text-right">

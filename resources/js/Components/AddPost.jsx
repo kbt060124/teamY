@@ -135,6 +135,7 @@ const AddPost = (userId) => {
                                     onChange={(e) =>
                                         setData("title", e.target.value)
                                     }
+                                    required
                                 />
                             </div>
 
@@ -143,10 +144,11 @@ const AddPost = (userId) => {
                                     name="text"
                                     placeholder="news"
                                     className="w-full"
-                                    minRows={3}
+                                    minRows={4}
                                     onChange={(e) =>
                                         setData("news", e.target.value)
                                     }
+                                    required
                                 />
                             </div>
                             <div className="w-full flex justify-end">
