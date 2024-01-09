@@ -1,6 +1,5 @@
 import {
     Card,
-    CardActions,
     CardContent,
     CardMedia,
     Button,
@@ -11,7 +10,6 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
-import SearchBar from "@/Components/SearchBar";
 import Layout from "@/Layouts/Layout";
 import AddRecommendation from "@/Components/AddRecommendation";
 
@@ -78,10 +76,7 @@ export default function OwnRecommendationList(props) {
         if (props.recommends.length < recommendCnt) {
             addCnt = recommendCnt - props.recommends.length;
             return (
-                <AddRecommendation
-                        props={{ userId: data.id}}
-                        key="addArea"
-                />
+                <AddRecommendation props={{ userId: data.id }} key="addArea" />
             );
         }
     };
@@ -137,7 +132,7 @@ export default function OwnRecommendationList(props) {
             //base64形式の画像データをfileInfoに格納
             setRecommendFile(reader.result);
         };
-    };     
+    };
 
     return (
         <Layout>
@@ -211,7 +206,9 @@ export default function OwnRecommendationList(props) {
                                         <div className="font-bold">
                                             {item.title}
                                         </div>
-                                        <div className="whitespace-pre-wrap">{item.text}</div>
+                                        <div className="whitespace-pre-wrap">
+                                            {item.text}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -219,7 +216,11 @@ export default function OwnRecommendationList(props) {
                             {addArea()}
                         </div>
                     </div>
-                    <Modal open={open} onClose={handleClose} className="overflow-y-scroll">
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        className="overflow-y-scroll"
+                    >
                         <div className="flex items-center">
                             {editMode === true ? (
                                 <form
@@ -228,102 +229,113 @@ export default function OwnRecommendationList(props) {
                                     className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
                                 >
                                     <div className="flex">
-                                    <div className="w-1/3 h-1/2 p-12">
-                                        <img src={file} alt="" />
+                                        <div className="w-1/3 h-1/2 p-12">
+                                            <img src={file} alt="" />
 
-                                        <Button
-                                            variant="contained"
-                                            component="label"
-                                        >
-                                            画像を選択
-                                            <input
-                                                type="file"
-                                                hidden
-                                                name="icon"
-                                                onChange={handleChangeImg}
-                                                accept="image/*"
-                                            />
-                                        </Button>
-                                    </div>
-                                    <div className="w-2/3 px-8 pt-10 pb-4">
-                                        <div className="name mb-4">
-                                            <TextField
-                                                name="name"
-                                                defaultValue={props.profile.name}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "name",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <div className="title mb-4">
-                                            <TextField
-                                                name="title"
-                                                defaultValue={props.profile.title}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "title",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-
-                                        <div className="text text-xl h-2/5">
-                                            <TextareaAutosize
-                                                name="text"
-                                                defaultValue={props.profile.text}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "text",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                className="w-full h-2/3 whitespace-pre-wrap"
-                                            />
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="mx-8 mb-4 text-right">
                                             <Button
                                                 variant="contained"
-                                                size="large"
-                                                type="submit"
+                                                component="label"
                                             >
-                                                確定
+                                                画像を選択
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    name="icon"
+                                                    onChange={handleChangeImg}
+                                                    accept="image/*"
+                                                />
                                             </Button>
-                                     </div>
+                                        </div>
+                                        <div className="w-2/3 px-8 pt-10 pb-4">
+                                            <div className="name mb-4">
+                                                <TextField
+                                                    name="name"
+                                                    defaultValue={
+                                                        props.profile.name
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "name",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                />
+                                            </div>
+                                            <div className="title mb-4">
+                                                <TextField
+                                                    name="title"
+                                                    defaultValue={
+                                                        props.profile.title
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "title",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div className="text text-xl h-2/5">
+                                                <TextareaAutosize
+                                                    name="text"
+                                                    defaultValue={
+                                                        props.profile.text
+                                                    }
+                                                    minRows={6}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "text",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    className="w-full h-2/3 whitespace-pre-wrap"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mx-8 mb-4 text-right">
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            type="submit"
+                                        >
+                                            確定
+                                        </Button>
+                                    </div>
                                 </form>
                             ) : (
                                 <div className="bg-white mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative">
                                     <div className="flex ">
-                                    <div className="w-1/3 h-1/2 p-12">
-                                        <img src={imgPath} alt="" />
-                                    </div>
-                                    <div className="w-2/3 px-8 pt-12 pb-4">
-                                        <div className="name mb-8 text-4xl font-bold">
-                                            {props.profile.name}
+                                        <div className="w-1/3 h-1/2 p-12">
+                                            <img src={imgPath} alt="" />
                                         </div>
-                                        <div className="title mb-8 text-xl font-bold">
-                                            {props.profile.title}
+                                        <div className="w-2/3 px-8 pt-12 pb-4">
+                                            <div className="name mb-8 text-4xl font-bold">
+                                                {props.profile.name}
+                                            </div>
+                                            <div className="title mb-8 text-xl font-bold">
+                                                {props.profile.title}
+                                            </div>
+                                            <div className="text text-xl h-2/5">
+                                                <p className="whitespace-pre-wrap">
+                                                    {props.profile.text}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div className="text text-xl h-2/5">
-                                            <p className="whitespace-pre-wrap">{props.profile.text}</p>
-                                        </div>
-
-                                    </div>
                                     </div>
                                     <div className="mx-8 mb-4 text-right">
-                                            <Button
-                                                variant="contained"
-                                                size="large"
-                                                onClick={() => handleEdit()}
-                                            >
-                                                編集
-                                            </Button>
-                                      </div>
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            onClick={() => handleEdit()}
+                                        >
+                                            編集
+                                        </Button>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -399,26 +411,32 @@ export default function OwnRecommendationList(props) {
                                                 <div className="recommnedName mb-8 text-4xl font-bold">
                                                     <TextField
                                                         name="name"
-                                                        defaultValue={data.guestName}
+                                                        defaultValue={
+                                                            data.guestName
+                                                        }
                                                         onChange={(e) =>
                                                             setData(
                                                                 "guestName",
                                                                 e.target.value
                                                             )
                                                         }
+                                                        required
                                                     />
                                                 </div>
                                             )}
                                             <div className="title mb-4">
                                                 <TextField
                                                     name="recommnedTitle"
-                                                    defaultValue={data.recommendTitle}
+                                                    defaultValue={
+                                                        data.recommendTitle
+                                                    }
                                                     onChange={(e) =>
                                                         setData(
                                                             "recommendTitle",
                                                             e.target.value
                                                         )
                                                     }
+                                                    required
                                                     className="w-full"
                                                 />
                                             </div>
@@ -435,6 +453,7 @@ export default function OwnRecommendationList(props) {
                                                     e.target.value
                                                 )
                                             }
+                                            required
                                             className="w-full h-2/3 whitespace-pre-wrap"
                                         />
                                     </div>
