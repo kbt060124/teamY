@@ -152,31 +152,78 @@ const AddRecommendation = (props) => {
                                 />
                             </Button>
                         </div>
-                        <div className="w-2/3 px-8 py-12">
-                            <Select
-                                onChange={handleSelectUser}
-                                options={allUsers}
-                                getOptionValue={(option) => option["userId"]}
-                                formatOptionLabel={formatOptionLabel}
-                                getOptionLabel={(option) => option["name"]}
-                                placeholder="Select user"
-                                isClearable={true}
-                                isSearchable={true}
-                                noOptionsMessage={() => "No User"}
-                                className="mb-4"
-                                required
-                            />
 
-                            <div className="name mb-4">
-                                {disable ? (
+                        <div className="flex">
+                            <div className="w-1/3 h-1/2 p-12">
+                                <img src={file} alt="" />
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    disabled={disable}
+                                >
+                                    画像を選択
+                                    <input
+                                        type="file"
+                                        hidden
+                                        name="icon"
+                                        onChange={handleChangeImg}
+                                        accept="image/*"
+                                    />
+                                </Button>
+                            </div>
+                            <div className="w-2/3 px-8 py-12">
+                                <Select
+                                    onChange={handleSelectUser}
+                                    options={allUsers}
+                                    getOptionValue={(option) =>
+                                        option["userId"]
+                                    }
+                                    formatOptionLabel={formatOptionLabel}
+                                    getOptionLabel={(option) => option["name"]}
+                                    placeholder="Select user"
+                                    isClearable={true}
+                                    isSearchable={true}
+                                    noOptionsMessage={() => "No User"}
+                                    className="mb-4"
+                                />
+
+                                <div className="name mb-4">
+                                    {disable ? (
+                                        <TextField
+                                            name="name"
+                                            placeholder="Up Next"
+                                            InputProps={disableStyle}
+                                            value={data.recommendName}
+                                            className="w-full"
+                                            variant="filled"
+                                        />
+                                    ) : (
+                                        <TextField
+                                            name="name"
+                                            placeholder="Up Next"
+                                            className="w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "recommendName",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    )}
+                                </div>
+                                <div className="title mb-4">
                                     <TextField
                                         name="name"
                                         placeholder="Up Next"
                                         InputProps={disableStyle}
                                         value={data.recommendName}
                                         className="w-full"
-                                        variant="filled"
-                                        required
+                                        onChange={(e) =>
+                                            setData(
+                                                "recommendTitle",
+                                                e.target.value
+                                            )
+                                        }
                                     />
                                 ) : (
                                     <TextField
@@ -191,43 +238,17 @@ const AddRecommendation = (props) => {
                                         }
                                         required
                                     />
-                                )}
-                            </div>
-                            <div className="title mb-4">
-                                <TextField
-                                    name="title"
-                                    placeholder="Your Future Recommendation"
-                                    className="w-full"
-                                    onChange={(e) =>
-                                        setData(
-                                            "recommendTitle",
-                                            e.target.value
-                                        )
-                                    }
-                                    required
-                                />
-                            </div>
+                                </div>
+                                <div className="text-right">
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        type="submit"
+                                    >
+                                        確定
+                                    </Button>
+                                </div>
 
-                            <div className="text text-xl w-full mb-4">
-                                <TextareaAutosize
-                                    name="text"
-                                    placeholder="Tell your story here…"
-                                    className="w-full"
-                                    minRows={4}
-                                    onChange={(e) =>
-                                        setData("recommendText", e.target.value)
-                                    }
-                                    required
-                                />
-                            </div>
-                            <div className="text-right">
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    type="submit"
-                                >
-                                    確定
-                                </Button>
                             </div>
                         </div>
                     </form>

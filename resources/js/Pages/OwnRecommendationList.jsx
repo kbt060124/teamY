@@ -216,67 +216,69 @@ export default function OwnRecommendationList(props) {
                             {addArea()}
                         </div>
                     </div>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        className="overflow-y-scroll"
-                    >
-                        <div className="flex items-center">
-                            {editMode === true ? (
-                                <form
-                                    onSubmit={handleSubmit}
-                                    encType="multipart/form-data"
-                                    className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
-                                >
-                                    <div className="flex">
-                                        <div className="w-1/3 h-1/2 p-12">
-                                            <img src={file} alt="" />
+                </div>
 
-                                            <Button
-                                                variant="contained"
-                                                component="label"
-                                            >
-                                                画像を選択
-                                                <input
-                                                    type="file"
-                                                    hidden
-                                                    name="icon"
-                                                    onChange={handleChangeImg}
-                                                    accept="image/*"
-                                                />
-                                            </Button>
+                {/* 個人のモーダル */}
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    className="overflow-y-scroll"
+                >
+                    <div className="flex items-center">
+                        {editMode === true ? (
+                            <form
+                                onSubmit={handleSubmit}
+                                encType="multipart/form-data"
+                                className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                            >
+                                <div className="flex">
+                                    <div className="w-1/3 h-1/2 p-12">
+                                        <img src={file} alt="" />
+
+                                        <Button
+                                            variant="contained"
+                                            component="label"
+                                        >
+                                            画像を選択
+                                            <input
+                                                type="file"
+                                                hidden
+                                                name="icon"
+                                                onChange={handleChangeImg}
+                                                accept="image/*"
+                                            />
+                                        </Button>
+                                    </div>
+                                    <div className="w-2/3 px-8 pt-10 pb-4">
+                                        <div className="name mb-4">
+                                            <TextField
+                                                name="name"
+                                                defaultValue={
+                                                    props.profile.name
+                                                }
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "name",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
                                         </div>
-                                        <div className="w-2/3 px-8 pt-10 pb-4">
-                                            <div className="name mb-4">
-                                                <TextField
-                                                    name="name"
-                                                    defaultValue={
-                                                        props.profile.name
-                                                    }
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "name",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    required
-                                                />
-                                            </div>
-                                            <div className="title mb-4">
-                                                <TextField
-                                                    name="title"
-                                                    defaultValue={
-                                                        props.profile.title
-                                                    }
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "title",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    required
-                                                />
-                                            </div>
+                                        <div className="title mb-4">
+                                            <TextField
+                                                name="title"
+                                                defaultValue={
+                                                    props.profile.title
+                                                }
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "title",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </div>
 
                                             <div className="text text-xl h-2/5">
                                                 <TextareaAutosize
@@ -436,8 +438,6 @@ export default function OwnRecommendationList(props) {
                                                             e.target.value
                                                         )
                                                     }
-                                                    required
-                                                    className="w-full"
                                                 />
                                             </div>
                                         </div>
