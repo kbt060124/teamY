@@ -8,19 +8,21 @@ const Header = () => {
     const storagePath = "../storage/img/";
 
     return (
-        <div className="w-full border-b-2 border-gray-200 flex items-center">
-            <Link href="/home">
+        <div className="py-3 w-full border-b border-gray-900 flex items-center">
+            <Link className="w-1/6 px-6" href="/home">
                 <img
-                    className="object-contain"
+                    className="object-contain w-full"
                     src={storagePath + "welcome/TRUST_black.png"}
                 />
             </Link>
-            <SearchBar />
-            <div className="m-auto">
-                <NotificationsIcon sx={{ fontSize: "40px" }} />
-                <SmsIcon sx={{ fontSize: "40px" }} />
+            <div className="w-2/3 m-auto">
+                <SearchBar />
             </div>
-            <Link className="mr-10" href={route('logout')} method="post" as="button">Log Out</Link>
+            <div className="m-auto">
+                <NotificationsIcon className="mr-3" sx={{ fontSize: "30px" }} />
+                <SmsIcon sx={{ fontSize: "30px" }} />
+            </div>
+            <Link className="m-auto" href={route('logout')} method="post" as="button">Log out</Link>
         </div>
     );
 };
