@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, TextField, TextareaAutosize } from "@mui/material";
 import { useForm } from "@inertiajs/react";
 import Select from "react-select";
-import CloseIcon from "@mui/icons-material/Close";
 
 const AddRecommendation = (props) => {
     const storagePath = "../storage/img/icons/";
@@ -30,7 +29,7 @@ const AddRecommendation = (props) => {
                     className="object-cover w-full h-full"
                 />
             </div>
-            <div className="mx-5 pl-4 flex items-center">
+            <div className="pl-4 flex items-center">
                 <div>
                     <div>{name}</div>
                     <div style={{ marginLeft: "10px", color: "#999" }}>
@@ -110,14 +109,14 @@ const AddRecommendation = (props) => {
     return (
         <>
             <div
-                className="my-5 flex items-center shadow-md border border-gray-900"
+                className="my-5 flex items-center"
                 onClick={() => handleOpen()}
             >
                 <div className="bg-gray-200">
                     <div className="text-5xl pt-8 text-center">+</div>
                     <div className="pb-8 px-2">Click to Add</div>
                 </div>
-                <div className="mx-5">
+                <div>
                     <div className="name font-bold">Up NEXT</div>
                     <div className="title font-bold">
                         Your Future Recommendation
@@ -129,23 +128,31 @@ const AddRecommendation = (props) => {
             </div>
 
             <Modal open={open} onClose={handleClose}>
-                <div className="h-full flex items-center">
+                <div className="flex items-center">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
-                        className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                        className="mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative bg-white"
                     >
-                        <div className="flex justify-end">
+                        <div className="w-1/3 h-1/2 p-12">
+                            <img src={file} alt="" />
+
                             <Button
-                                onClick={handleClose}
-                                style={{
-                                    color: "gray",
-                                    marginBottom: "10px",
-                                }}
+                                variant="contained"
+                                component="label"
+                                disabled={disable}
                             >
-                                <CloseIcon />
+                                画像を選択
+                                <input
+                                    type="file"
+                                    hidden
+                                    name="icon"
+                                    onChange={handleChangeImg}
+                                    accept="image/*"
+                                />
                             </Button>
                         </div>
+
                         <div className="flex">
                             <div className="w-1/3 h-1/2 p-12">
                                 <img src={file} alt="" />
@@ -206,8 +213,10 @@ const AddRecommendation = (props) => {
                                 </div>
                                 <div className="title mb-4">
                                     <TextField
-                                        name="title"
-                                        placeholder="Your Future Recommendation"
+                                        name="name"
+                                        placeholder="Up Next"
+                                        InputProps={disableStyle}
+                                        value={data.recommendName}
                                         className="w-full"
                                         onChange={(e) =>
                                             setData(
@@ -216,20 +225,18 @@ const AddRecommendation = (props) => {
                                             )
                                         }
                                     />
-                                </div>
-
-                                <div className="text text-xl w-full mb-4">
-                                    <TextareaAutosize
-                                        name="text"
-                                        placeholder="Tell your story here…"
+                                ) : (
+                                    <TextField
+                                        name="name"
+                                        placeholder="Up Next"
                                         className="w-full"
-                                        minRows={4}
                                         onChange={(e) =>
                                             setData(
-                                                "recommendText",
+                                                "recommendName",
                                                 e.target.value
                                             )
                                         }
+                                        required
                                     />
                                 </div>
                                 <div className="text-right">
@@ -241,6 +248,7 @@ const AddRecommendation = (props) => {
                                         確定
                                     </Button>
                                 </div>
+
                             </div>
                         </div>
                     </form>
