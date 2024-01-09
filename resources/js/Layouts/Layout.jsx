@@ -1,7 +1,6 @@
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
 import { usePage } from "@inertiajs/react";
-import { useEffect } from "react";
 
 const Layout = ({ children }) => {
     const userId = usePage().props.auth.user.id;
@@ -9,10 +8,9 @@ const Layout = ({ children }) => {
     const userIcon = usePage().props.auth.user.icon;
 
     return (
-        <div className="h-screen">
-            <Header/>
-            <div className="flex w-full"
-            style={{ height: '90%' }}>
+        <div>
+            <Header />
+            <div className="flex w-full h-screen">
                 <Sidebar
                     id={userId}
                     name={userName}
