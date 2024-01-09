@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPost;
 use App\Models\UserPostThank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserPostThankController extends Controller
 {
@@ -28,7 +30,19 @@ class UserPostThankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $thanks = new UserPostThank();
+        $thanks->user_id  = Auth::user()->id;
+        $thanks->thanks_user_id = $request->thanksUserId;
+        $thanks->message = $request->message;
+        $thanks->save();
+        $thanksId = $thanks->id;
+
+        $posts = new UserPost();
+        $posts->user_id = Auth::user()->id;
+        $posts->type = 3;
+        $posts->post_id = $thanksId;
+        $posts->save();
+        return to_route('home');
     }
 
     /**

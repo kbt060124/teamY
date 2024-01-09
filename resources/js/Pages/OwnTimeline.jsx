@@ -123,7 +123,7 @@ const OwnTimeline = (props) => {
                                                         <span className="font-bold">
                                                             {item.thanks_name}
                                                         </span>
-                                                        に「ありがとう」しました。
+                                                        さんに「ありがとう」しました。
                                                     </p>
                                                 ) : (
                                                     <p className="name">
@@ -142,7 +142,7 @@ const OwnTimeline = (props) => {
                                                 </p>
                                             </div>
                                             <div className="bg-white ml-4 p-4 flex">
-                                                <div className="w-1/4">
+                                                <div className="w-1/6">
                                                     <img
                                                         src={
                                                             storagePath +

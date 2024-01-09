@@ -107,14 +107,14 @@ const Home = (props) => {
                                                     <span className="font-bold">
                                                         {item.name}
                                                     </span>
-                                                    から「ありがとう」されました。
+                                                    さんから「ありがとう」されました。
                                                 </p>
                                                 <p className="text-gray-500">
                                                     {item.date}
                                                 </p>
                                             </div>
                                             <div className="bg-white ml-4 p-4 flex">
-                                                <div className="w-1/4">
+                                                <div className="w-1/6">
                                                     <img
                                                         src={
                                                             storagePath +
