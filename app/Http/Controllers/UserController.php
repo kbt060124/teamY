@@ -75,8 +75,12 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $searchUser = User::select('id as userId', 'name', 'title', 'text', 'icon')
-            ->where('name', 'LIKE', '%' . $request->search . '%')
             ->where('invalid_flg', 0)
+            ->where(function($q) use($request){
+                $q->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('title', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('text', 'LIKE', '%' . $request->search . '%');
+            })
             ->get();
 
         $searchRecommend = UserPostRecommend::from('user_post_recommends as r')
@@ -103,6 +107,8 @@ class UserController extends Controller
             // ->where('accept_flg', 1) 承認されてるかどうか。MVPでは判定しない。
             ->where('ru.name', 'LIKE', '%' . $request->search . '%')
             ->orWhere('g.name', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('r.title', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('r.text', 'LIKE', '%' . $request->search . '%')
             ->get();
 
         return Inertia::render('Search', [
