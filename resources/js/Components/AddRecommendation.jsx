@@ -146,6 +146,7 @@ const AddRecommendation = (props) => {
                                 <CloseIcon />
                             </Button>
                         </div>
+
                         <div className="flex">
                             <div className="w-1/3 h-1/2 p-12">
                                 <img src={file} alt="" />
@@ -215,6 +216,7 @@ const AddRecommendation = (props) => {
                                                 e.target.value
                                             )
                                         }
+                                        required
                                     />
                                 </div>
 
@@ -241,6 +243,7 @@ const AddRecommendation = (props) => {
                                         確定
                                     </Button>
                                 </div>
+
                             </div>
                         </div>
                     </form>

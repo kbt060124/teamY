@@ -390,7 +390,39 @@ export default function OwnRecommendationList(props) {
                                                     )
                                                 }
                                             />
+
                                         </div>
+                                        <div className="w-2/3 px-8 pt-10 pb-4">
+                                            <div className="name mb-4">
+                                                <TextField
+                                                    name="name"
+                                                    defaultValue={
+                                                        props.profile.name
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "name",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                />
+                                            </div>
+                                            <div className="title mb-4">
+                                                <TextField
+                                                    name="title"
+                                                    defaultValue={
+                                                        props.profile.title
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "title",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                />
+                                            </div>
 
                                         <div className="text text-xl h-2/5">
                                             <TextareaAutosize
@@ -540,7 +572,8 @@ export default function OwnRecommendationList(props) {
                                                             "guestName",
                                                             e.target.value
                                                         )
-                                                    }
+                                                   }
+
                                                 />
                                             </div>
                                         )}

@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\UserPostNewsController;
 use App\Http\Controllers\UserPostRecommendController;
+use App\Http\Controllers\UserPostThankController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,6 +43,8 @@ Route::post('/ownrecommendations-edit', [UserPostRecommendController::class, "up
 Route::post('/ownrecommendations-store', [UserPostRecommendController::class, "store"])->middleware('auth')->name('ownrecommendations.store');
 
 Route::post('/ownnews-store', [UserPostNewsController::class, "store"])->middleware('auth')->name('ownnews.store');
+
+Route::post('/thanks-store', [UserPostThankController::class, "store"])->middleware('auth')->name('thanks.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
