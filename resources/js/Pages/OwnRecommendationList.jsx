@@ -211,7 +211,7 @@ export default function OwnRecommendationList(props) {
                                         <div className="font-bold">
                                             {item.title}
                                         </div>
-                                        <div>{item.text}</div>
+                                        <div className="whitespace-pre-wrap">{item.text}</div>
                                     </div>
                                 </div>
                             ))}
@@ -219,14 +219,15 @@ export default function OwnRecommendationList(props) {
                             {addArea()}
                         </div>
                     </div>
-                    <Modal open={open} onClose={handleClose}>
+                    <Modal open={open} onClose={handleClose} className="overflow-y-scroll">
                         <div className="flex items-center">
                             {editMode === true ? (
                                 <form
                                     onSubmit={handleSubmit}
                                     encType="multipart/form-data"
-                                    className="mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative bg-white"
+                                    className="mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative bg-white"
                                 >
+                                    <div className="flex">
                                     <div className="w-1/3 h-1/2 p-12">
                                         <img src={file} alt="" />
 
@@ -244,11 +245,11 @@ export default function OwnRecommendationList(props) {
                                             />
                                         </Button>
                                     </div>
-                                    <div className="w-2/3 px-8 py-12">
+                                    <div className="w-2/3 px-8 pt-10 pb-4">
                                         <div className="name mb-4">
                                             <TextField
                                                 name="name"
-                                                value={props.profile.name}
+                                                defaultValue={props.profile.name}
                                                 onChange={(e) =>
                                                     setData(
                                                         "name",
@@ -260,7 +261,7 @@ export default function OwnRecommendationList(props) {
                                         <div className="title mb-4">
                                             <TextField
                                                 name="title"
-                                                value={props.profile.title}
+                                                defaultValue={props.profile.title}
                                                 onChange={(e) =>
                                                     setData(
                                                         "title",
@@ -273,16 +274,19 @@ export default function OwnRecommendationList(props) {
                                         <div className="text text-xl h-2/5">
                                             <TextareaAutosize
                                                 name="text"
-                                                value={props.profile.text}
+                                                defaultValue={props.profile.text}
                                                 onChange={(e) =>
                                                     setData(
                                                         "text",
                                                         e.target.value
                                                     )
                                                 }
+                                                className="w-full h-2/3 whitespace-pre-wrap"
                                             />
                                         </div>
-                                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+                                    </div>
+                                    </div>
+                                    <div className="mx-8 mb-4 text-right">
                                             <Button
                                                 variant="contained"
                                                 size="large"
@@ -290,15 +294,15 @@ export default function OwnRecommendationList(props) {
                                             >
                                                 確定
                                             </Button>
-                                        </div>
-                                    </div>
+                                     </div>
                                 </form>
                             ) : (
-                                <div className="bg-white mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative">
+                                <div className="bg-white mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative">
+                                    <div className="flex ">
                                     <div className="w-1/3 h-1/2 p-12">
                                         <img src={imgPath} alt="" />
                                     </div>
-                                    <div className="w-2/3 px-8 py-12">
+                                    <div className="w-2/3 px-8 pt-12 pb-4">
                                         <div className="name mb-8 text-4xl font-bold">
                                             {props.profile.name}
                                         </div>
@@ -306,9 +310,12 @@ export default function OwnRecommendationList(props) {
                                             {props.profile.title}
                                         </div>
                                         <div className="text text-xl h-2/5">
-                                            <p>{props.profile.text}</p>
+                                            <p className="whitespace-pre-wrap">{props.profile.text}</p>
                                         </div>
-                                        <div className="mx-12 my-12 text-right absolute bottom-0 right-0">
+
+                                    </div>
+                                    </div>
+                                    <div className="mx-8 mb-4 text-right">
                                             <Button
                                                 variant="contained"
                                                 size="large"
@@ -316,8 +323,7 @@ export default function OwnRecommendationList(props) {
                                             >
                                                 編集
                                             </Button>
-                                        </div>
-                                    </div>
+                                      </div>
                                 </div>
                             )}
                         </div>
@@ -393,7 +399,7 @@ export default function OwnRecommendationList(props) {
                                                 <div className="recommnedName mb-8 text-4xl font-bold">
                                                     <TextField
                                                         name="name"
-                                                        value={data.guestName}
+                                                        defaultValue={data.guestName}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "guestName",
@@ -406,7 +412,7 @@ export default function OwnRecommendationList(props) {
                                             <div className="title mb-4">
                                                 <TextField
                                                     name="recommnedTitle"
-                                                    value={data.recommendTitle}
+                                                    defaultValue={data.recommendTitle}
                                                     onChange={(e) =>
                                                         setData(
                                                             "recommendTitle",
@@ -422,14 +428,14 @@ export default function OwnRecommendationList(props) {
                                         <TextareaAutosize
                                             name="recommendText"
                                             multiline="true"
-                                            value={data.recommendText}
+                                            defaultValue={data.recommendText}
                                             onChange={(e) =>
                                                 setData(
                                                     "recommendText",
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full h-2/3"
+                                            className="w-full h-2/3 whitespace-pre-wrap"
                                         />
                                     </div>
                                     <div className="mx-12 mb-4 text-right">
