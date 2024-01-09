@@ -7,15 +7,15 @@ const Sidebar = (props) => {
     SidebarData[0]["link"] = "/owntimeline/" + props.id;
     const storagePath = "../storage/img/icons/";
     return (
-        <div className="sidebar h-full w-1/6 bg-white border-r-2 border-gray-200">
-            <img src={storagePath + props.icon} alt="" />
-            <ul className="sidebar_list h-auto w-full p-0">
+        <div className="sidebar h-full w-1/6 bg-white border-r border-gray-900">
+            <img className="p-4 object-contain" src={storagePath + props.icon} alt="" />
+            <ul className="border-t border-gray-900 sidebar_list h-auto w-full p-0">
                 {SidebarData.map((value, key) => {
                     return (
                         <Link href={value.link} key={key}>
                             <li
                                 className={
-                                    "row flex justify-center items-center w-full h-16" +
+                                    "row border-b border-gray-900 flex justify-center items-center w-full h-16" +
                                     (window.location.pathname == value.link
                                         ? " bg-gray-200"
                                         : " ") +
