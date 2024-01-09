@@ -158,8 +158,12 @@ class UserController extends Controller
 
     public function getAllUser(Request $request)
     {
+        $allUser = User::select('id as userId', 'name', 'title', 'icon')
+            ->where('invalid_flg', 0)
+            ->where('id', '<>', Auth::user()->id)
+            ->get();
         return response()->json([
-            'allUser' => User::select('id as userId', 'name', 'title', 'icon')->where('invalid_flg', 0)->get()
+            'allUser' => $allUser
         ]);
     }
 }
