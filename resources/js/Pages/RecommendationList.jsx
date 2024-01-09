@@ -243,7 +243,7 @@ export default function RecommendationList(props) {
                     className="overflow-y-scroll"
                 >
                     <div className="flex items-center">
-                        <div className="bg-white mx-auto my-auto border border-solid border-black w-2/3 h-4/5 relative">
+                        <div className="bg-white mx-auto my-auto pb-8 border border-solid border-black w-2/3 h-4/5 relative">
                             <div className="flex justify-end">
                                 <Button
                                     onClick={handleClose}
@@ -270,7 +270,6 @@ export default function RecommendationList(props) {
                                     <div className="text text-xl h-2/5 whitespace-pre-wrap">
                                         <p>{props.profile.text}</p>
                                     </div>
-                                    <div className="mx-12 my-12 text-right absolute bottom-0 right-0"></div>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +278,7 @@ export default function RecommendationList(props) {
 
                 {/* レコメンド用のモーダル */}
                 <Modal open={recommendOpen} onClose={handleRecommendClose}>
-                    <div className="h-full flex items-center">
+                    <div className="flex items-center">
                         {orderMode === true ? (
                             <div className="mx-auto pt-6 border border-solid border-black w-2/3 relative bg-white">
                                 <div className="h-1/3 flex justify-center items-end">
