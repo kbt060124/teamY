@@ -8,7 +8,8 @@ const Header = () => {
     const storagePath = "../storage/img/";
 
     return (
-        <div className="py-3 w-full border-b border-gray-900 flex items-center">
+        <div className="w-full border-b border-gray-900 flex items-center"
+        style={{ height: '10%' }}>
             <Link className="w-1/6 px-6" href="/home">
                 <img
                     className="object-contain w-full"

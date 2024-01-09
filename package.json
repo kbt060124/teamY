@@ -24,6 +24,8 @@
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.3",
         "@mui/material": "^5.15.2",
+        "@tailwindcss/line-clamp": "^0.4.4",
+        "leader-line-new": "^1.1.9",
         "react-select": "^5.8.0"
     }
 }
