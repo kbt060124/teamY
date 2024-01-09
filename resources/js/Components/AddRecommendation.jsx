@@ -22,13 +22,20 @@ const AddRecommendation = (props) => {
 
     const formatOptionLabel = ({ userId, name, title, icon }) => (
         <div className="flex" key={userId}>
-            <div className="w-1/6">
-                <img src={storagePath + icon} alt="" />
+            <div className="w-1/6 max-h-20">
+                <img
+                    src={storagePath + icon}
+                    alt=""
+                    className="object-cover w-full h-full"
+                />
             </div>
-
-            <div>
-                <div>{name}</div>
-                <div style={{ marginLeft: "10px", color: "#999" }}>{title}</div>
+            <div className="pl-4 flex items-center">
+                <div>
+                    <div>{name}</div>
+                    <div style={{ marginLeft: "10px", color: "#999" }}>
+                        {title}
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -90,7 +97,6 @@ const AddRecommendation = (props) => {
         } else {
             cancelSlect();
         }
-
     };
 
     const handleSubmit = (e) => {
@@ -203,6 +209,7 @@ const AddRecommendation = (props) => {
                                     name="text"
                                     placeholder="Tell your story here…"
                                     className="w-full"
+                                    minRows={4}
                                     onChange={(e) =>
                                         setData("recommendText", e.target.value)
                                     }
