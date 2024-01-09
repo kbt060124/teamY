@@ -160,7 +160,7 @@ export default function RecommendationList(props) {
                             {/*新規追加 */}
                         </div>
                     </div>
-                    <Modal open={open} onClose={handleClose}>
+                    <Modal open={open} onClose={handleClose} className="overflow-y-scroll">
                         <div className="flex items-center">
                             <div className="bg-white mx-auto my-auto flex border border-solid border-black w-2/3 h-4/5 relative">
                                 <div className="w-1/3 h-1/2 p-12">
@@ -173,7 +173,7 @@ export default function RecommendationList(props) {
                                     <div className="title mb-8 text-xl font-bold">
                                         {props.profile.title}
                                     </div>
-                                    <div className="text text-xl h-2/5">
+                                    <div className="text text-xl h-2/5 whitespace-pre-wrap">
                                         <p>{props.profile.text}</p>
                                     </div>
                                     <div className="mx-12 my-12 text-right absolute bottom-0 right-0"></div>

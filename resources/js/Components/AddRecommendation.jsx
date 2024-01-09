@@ -96,6 +96,7 @@ const AddRecommendation = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setOpen(false);
+        setFile();
         post(route("ownrecommendations.store"));
     };
 

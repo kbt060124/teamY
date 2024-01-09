@@ -43,7 +43,7 @@ const Search = (props) => {
                                             <p className="title font-bold">
                                                 {item.title}
                                             </p>
-                                            <p>{item.text}</p>
+                                            <p className="whitespace-pre-wrap">{item.text}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ const Search = (props) => {
                                                 <p className="r_title font-bold">
                                                     {item.recommend_title}
                                                 </p>
-                                                <p className="text">
+                                                <p className="text whitespace-pre-wrap">
                                                     {item.recommend_text}
                                                 </p>
                                             </div>

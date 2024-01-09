@@ -38,7 +38,7 @@ const OwnTimeline = (props) => {
                                                 <p className="title font-bold">
                                                     {item.n_title}
                                                 </p>
-                                                <p>{item.news}</p>
+                                                <p className="whitespace-pre-wrap">{item.news}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@ const OwnTimeline = (props) => {
                                                 </p>
                                             </div>
                                             <div className="bg-white ml-4 p-4 flex">
-                                                <div className="w-1/4">
+                                                <div className="w-1/6">
                                                     <img
                                                         src={
                                                             storagePath +
@@ -86,14 +86,14 @@ const OwnTimeline = (props) => {
                                                         alt=""
                                                     />
                                                 </div>
-                                                <div className="ml-2">
+                                                <div className="w-5/6 ml-2">
                                                     <p className="r_name font-bold">
                                                         {item.recommended_name}
                                                     </p>
                                                     <p className="r_title font-bold">
                                                         {item.r_title}
                                                     </p>
-                                                    <p className="text">
+                                                    <p className="text whitespace-pre-wrap">
                                                         {item.text}
                                                     </p>
                                                 </div>
@@ -155,7 +155,7 @@ const OwnTimeline = (props) => {
                                                     <p className="thanks font-bold">
                                                         THANK YOU
                                                     </p>
-                                                    <p className="text">
+                                                    <p className="text whitespace-pre-wrap">
                                                         {item.thanks_message}
                                                     </p>
                                                 </div>
